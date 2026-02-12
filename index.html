@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shift to Calendar Pro</title>
+    <title>WorkSlots</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
@@ -25,7 +25,7 @@
       .day-cell:hover {
         background-color: #f8fafc;
       }
-      .shift-badge {
+      .slot-badge {
         font-size: 0.7rem;
         padding: 2px 4px;
         border-radius: 4px;
@@ -90,7 +90,7 @@
               />
             </svg>
           </div>
-          <h1 class="text-xl font-bold text-slate-800">ShiftSync</h1>
+          <h1 class="text-xl font-bold text-slate-800">WorkSlots</h1>
         </div>
 
         <div class="flex items-center gap-3">
@@ -128,24 +128,24 @@
     <main
       class="max-w-6xl mx-auto mt-8 px-4 grid grid-cols-1 lg:grid-cols-4 gap-8"
     >
-      <!-- Sidebar: Shift Definitions -->
+      <!-- Sidebar: Slot Definitions -->
       <div class="lg:col-span-1 space-y-6">
         <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
           <h2
             class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4"
           >
-            Your Shift Types
+            Your Slot Types
           </h2>
-          <div id="shiftTypeList" class="space-y-3 mb-6">
-            <!-- Shift Items injected here -->
+          <div id="slotTypeList" class="space-y-3 mb-6">
+            <!-- Slot Items injected here -->
           </div>
           <button
-            id="addShiftTypeBtn"
-            onclick="addNewShiftType()"
+            id="addSlotTypeBtn"
+            onclick="addNewSlotType()"
             class="w-full py-2 border-2 border-dashed border-slate-200 rounded-lg text-slate-400 hover:text-indigo-600 hover:border-indigo-300 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-slate-400 disabled:hover:border-slate-200"
             disabled
           >
-            + Add New Shift Type
+            + Add New Slot Type
           </button>
         </div>
 
@@ -154,8 +154,8 @@
             Instructions
           </h3>
           <p class="text-xs text-indigo-700 leading-relaxed">
-            1. Define your shifts.<br />
-            2. Click a date to assign a shift.<br />
+            1. Define your slots.<br />
+            2. Click a date to assign a slot.<br />
             3. Navigate to the month you want to sync.<br />
             4. Click "Sync Current Month" to update your Google Calendar.
           </p>
@@ -189,9 +189,9 @@
             <div class="flex gap-2">
               <button
                 id="refreshBtn"
-                onclick="loadShiftsFromCalendar()"
+                onclick="loadSlotsFromCalendar()"
                 class="p-2 hover:bg-slate-100 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hidden"
-                title="Reload shifts from Google Calendar"
+                title="Reload slots from Google Calendar"
                 disabled
               >
                 <svg
@@ -289,14 +289,14 @@
       </div>
     </main>
 
-    <!-- Modal for Assigning Shifts -->
+    <!-- Modal for Assigning Slots -->
     <div
       id="assignModal"
       class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] px-4"
     >
       <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full">
-        <h3 class="text-lg font-bold mb-4" id="modalTitle">Select Shift</h3>
-        <div id="modalShiftOptions" class="space-y-2"></div>
+        <h3 class="text-lg font-bold mb-4" id="modalTitle">Select Slot</h3>
+        <div id="modalSlotOptions" class="space-y-2"></div>
         <div class="mt-6 flex justify-end gap-3">
           <button
             onclick="closeModal()"
@@ -317,24 +317,24 @@
     </div>
 
     <script>
-      const CLIENT_ID =
+       const CLIENT_ID =
         "276844562286-biq705124253b75ro3fgj2o0garfci2v.apps.googleusercontent.com";
       const API_KEY = "AIzaSyCnDviyu5RBWmZfaY7c7bIvtkcTwet_X04";
       const DISCOVERY_DOC =
         "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
       const SCOPES =
         "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
-      // Used to identify ShiftSync-managed events (make this hard-to-guess).
-      const SHIFT_SYNC_MANAGED_VALUE =
-        "shiftsync_9f6c2a7d4b1e4c3aa0d8f7e2c1b9a6d5";
-      const SHIFT_SYNC_PRIVATE_FILTER = `shiftSyncManaged=${SHIFT_SYNC_MANAGED_VALUE}`;
-      // Used to identify ShiftSync calendar in description (make this hard-to-guess).
-      const SHIFT_SYNC_CALENDAR_IDENTIFIER =
-        "shiftsync_cal_8e7f3c9a2d1b5e4f6c8a0d3b7e2f1c9a";
-      const SHIFT_SYNC_CALENDAR_NAME = "ShiftSync";
+      // Used to identify WorkSlots-managed events (make this hard-to-guess).
+      const WORK_SLOTS_MANAGED_VALUE =
+        "workslots_9f6c2a7d4b1e4c3aa0d8f7e2c1b9a6d5";
+      const WORK_SLOTS_PRIVATE_FILTER = `workSlotsManaged=${WORK_SLOTS_MANAGED_VALUE}`;
+      // Used to identify WorkSlots calendar in description (make this hard-to-guess).
+      const WORK_SLOTS_CALENDAR_IDENTIFIER =
+        "workslots_cal_8e7f3c9a2d1b5e4f6c8a0d3b7e2f1c9a";
+      const WORK_SLOTS_CALENDAR_NAME = "WorkSlots";
       // Boundary markers for app-managed content in calendar description
-      const SHIFT_SYNC_DATA_START = "--- SHIFTSYNC DATA START ---";
-      const SHIFT_SYNC_DATA_END = "--- SHIFTSYNC DATA END ---";
+      const WORK_SLOTS_DATA_START = "--- WORKSLOTS DATA START ---";
+      const WORK_SLOTS_DATA_END = "--- WORKSLOTS DATA END ---";
 
       let tokenClient;
       let gapiInited = false;
@@ -346,51 +346,49 @@
       let selectedCalendarId = null;
       let userCalendars = [];
 
-      let shiftTypes = [];
+      let slotTypes = [];
 
       let schedule = {}; // No longer stored in localStorage - loaded from Google Calendar
       let googleEventColors = null; // { [colorId]: { background, foreground } }
 
-      function getShiftColorHex(shift) {
+      function getSlotColorHex(slot) {
         if (
-          shift?.colorId &&
-          googleEventColors?.[String(shift.colorId)]?.background
+          slot?.colorId &&
+          googleEventColors?.[String(slot.colorId)]?.background
         ) {
-          return googleEventColors[String(shift.colorId)].background;
+          return googleEventColors[String(slot.colorId)].background;
         }
-        return shift?.color || "#6366f1";
+        return slot?.color || "#6366f1";
       }
 
-      function toggleShiftColorPicker(shiftId) {
+      function toggleSlotColorPicker(slotId) {
         if (!googleEventColors) return;
-        closeAllShiftColorPickers(shiftId);
-        const menu = document.getElementById(`shiftColorMenu_${shiftId}`);
+        closeAllSlotColorPickers(slotId);
+        const menu = document.getElementById(`slotColorMenu_${slotId}`);
         if (!menu) return;
         const isHidden = menu.classList.contains("hidden");
         if (isHidden) menu.classList.remove("hidden");
         else menu.classList.add("hidden");
       }
 
-      function closeAllShiftColorPickers(exceptShiftId = null) {
-        document
-          .querySelectorAll('[id^="shiftColorMenu_"]')
-          .forEach((el) => {
-            if (
-              exceptShiftId !== null &&
-              el.id === `shiftColorMenu_${exceptShiftId}`
-            ) {
-              return;
-            }
-            el.classList.add("hidden");
-          });
+      function closeAllSlotColorPickers(exceptSlotId = null) {
+        document.querySelectorAll('[id^="slotColorMenu_"]').forEach((el) => {
+          if (
+            exceptSlotId !== null &&
+            el.id === `slotColorMenu_${exceptSlotId}`
+          ) {
+            return;
+          }
+          el.classList.add("hidden");
+        });
       }
 
-      function setShiftColorId(shiftId, colorId) {
-        updateShift(shiftId, "colorId", String(colorId));
-        closeAllShiftColorPickers();
+      function setSlotColorId(slotId, colorId) {
+        updateSlot(slotId, "colorId", String(colorId));
+        closeAllSlotColorPickers();
       }
 
-      function renderColorSwatches(shiftId, selectedColorId) {
+      function renderColorSwatches(slotId, selectedColorId) {
         if (!googleEventColors) {
           return "";
         }
@@ -412,14 +410,14 @@
                 } hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                 style="background-color: ${color}"
                 title="Color ${id}"
-                onclick="setShiftColorId(${shiftId}, '${id}')"
+                onclick="setSlotColorId(${slotId}, '${id}')"
               ></button>
             `;
           })
           .join("");
       }
 
-      async function findOrCreateShiftSyncCalendar() {
+      async function findOrCreateWorkSlotsCalendar() {
         if (!gapi.client.getToken()) {
           throw new Error("Not authenticated");
         }
@@ -439,9 +437,9 @@
 
               // Check if description contains our identifier
               const description = fullCal.result.description || "";
-              if (description.includes(SHIFT_SYNC_CALENDAR_IDENTIFIER)) {
+              if (description.includes(WORK_SLOTS_CALENDAR_IDENTIFIER)) {
                 selectedCalendarId = cal.id;
-                showToast("Using ShiftSync calendar");
+                showToast("Using WorkSlots calendar");
                 return cal.id;
               }
             } catch (err) {
@@ -451,24 +449,24 @@
           }
 
           // Not found - create a new calendar with identifier and boundary markers in description
-          const initialDescription = `${SHIFT_SYNC_DATA_START}\nShiftSync Calendar - ID: ${SHIFT_SYNC_CALENDAR_IDENTIFIER}\nSHIFT_TYPES_JSON: []\n${SHIFT_SYNC_DATA_END}`;
+          const initialDescription = `${WORK_SLOTS_DATA_START}\nWorkSlots Calendar - ID: ${WORK_SLOTS_CALENDAR_IDENTIFIER}\nSLOT_TYPES_JSON: []\n${WORK_SLOTS_DATA_END}`;
           const newCalendar = await gapi.client.calendar.calendars.insert({
             resource: {
-              summary: SHIFT_SYNC_CALENDAR_NAME,
+              summary: WORK_SLOTS_CALENDAR_NAME,
               description: initialDescription,
             },
           });
 
           selectedCalendarId = newCalendar.result.id;
-          showToast("Created ShiftSync calendar");
+          showToast("Created WorkSlots calendar");
           return newCalendar.result.id;
         } catch (err) {
-          console.error("Error finding/creating ShiftSync calendar:", err);
+          console.error("Error finding/creating WorkSlots calendar:", err);
           throw err;
         }
       }
 
-      async function loadShiftTypesFromCalendar(calendarId) {
+      async function loadSlotTypesFromCalendar(calendarId) {
         if (!calendarId) return null;
 
         try {
@@ -476,39 +474,46 @@
             calendarId: calendarId,
           });
 
-          // Look for shift types within the boundary markers
+          // Look for slot types within the boundary markers
           const description = response.result.description || "";
-          const startIdx = description.indexOf(SHIFT_SYNC_DATA_START);
-          const endIdx = description.indexOf(SHIFT_SYNC_DATA_END);
-          
+          const startIdx = description.indexOf(WORK_SLOTS_DATA_START);
+          const endIdx = description.indexOf(WORK_SLOTS_DATA_END);
+
           if (startIdx === -1 || endIdx === -1 || startIdx >= endIdx) {
             return null;
           }
 
           // Extract content between boundaries
-          const dataSection = description.substring(startIdx + SHIFT_SYNC_DATA_START.length, endIdx).trim();
-          const shiftTypesMatch = dataSection.match(/SHIFT_TYPES_JSON:\s*(\[.*\]|\{.*\})/s);
-          
-          if (shiftTypesMatch) {
+          const dataSection = description
+            .substring(startIdx + WORK_SLOTS_DATA_START.length, endIdx)
+            .trim();
+          const slotTypesMatch = dataSection.match(
+            /SLOT_TYPES_JSON:\s*(\[.*\]|\{.*\})/s,
+          );
+
+          if (slotTypesMatch) {
             try {
-              const parsed = JSON.parse(shiftTypesMatch[1]);
+              const parsed = JSON.parse(slotTypesMatch[1]);
               return Array.isArray(parsed) ? parsed : null;
             } catch (parseErr) {
-              console.error("Error parsing shift types from description:", parseErr);
+              console.error(
+                "Error parsing slot types from description:",
+                parseErr,
+              );
               return null;
             }
           }
-          
+
           return null;
         } catch (err) {
-          console.error("Error loading shift types from calendar:", err);
+          console.error("Error loading slot types from calendar:", err);
           return null;
         }
       }
 
-      async function saveShiftTypesToCalendar(calendarId, shiftTypes) {
+      async function saveSlotTypesToCalendar(calendarId, slotTypes) {
         if (!calendarId) {
-          console.warn("No calendar ID provided for saving shift types");
+          console.warn("No calendar ID provided for saving slot types");
           return false;
         }
 
@@ -519,29 +524,37 @@
           });
 
           const currentDesc = currentCal.result.description || "";
-          
+
           // Extract user content before and after the boundary
-          const startIdx = currentDesc.indexOf(SHIFT_SYNC_DATA_START);
-          const endIdx = currentDesc.indexOf(SHIFT_SYNC_DATA_END);
-          
+          const startIdx = currentDesc.indexOf(WORK_SLOTS_DATA_START);
+          const endIdx = currentDesc.indexOf(WORK_SLOTS_DATA_END);
+
           let beforeBoundary = "";
           let afterBoundary = "";
-          
+
           if (startIdx !== -1 && endIdx !== -1 && startIdx < endIdx) {
             // Boundaries exist - extract user content
             beforeBoundary = currentDesc.substring(0, startIdx).trim();
-            afterBoundary = currentDesc.substring(endIdx + SHIFT_SYNC_DATA_END.length).trim();
+            afterBoundary = currentDesc
+              .substring(endIdx + WORK_SLOTS_DATA_END.length)
+              .trim();
           } else {
             // No boundaries yet - check if there's existing content
             // If description contains the identifier, use everything before it as user content
-            if (currentDesc.includes(SHIFT_SYNC_CALENDAR_IDENTIFIER)) {
-              const identifierIdx = currentDesc.indexOf(SHIFT_SYNC_CALENDAR_IDENTIFIER);
+            if (currentDesc.includes(WORK_SLOTS_CALENDAR_IDENTIFIER)) {
+              const identifierIdx = currentDesc.indexOf(
+                WORK_SLOTS_CALENDAR_IDENTIFIER,
+              );
               beforeBoundary = currentDesc.substring(0, identifierIdx).trim();
               // Remove any old format data after identifier
               const afterIdentifier = currentDesc.substring(identifierIdx);
-              const oldDataMatch = afterIdentifier.match(/SHIFT_TYPES_JSON:.*$/s);
+              const oldDataMatch =
+                afterIdentifier.match(/SLOT_TYPES_JSON:.*$/s);
               if (oldDataMatch) {
-                const oldDataEnd = identifierIdx + afterIdentifier.indexOf(oldDataMatch[0]) + oldDataMatch[0].length;
+                const oldDataEnd =
+                  identifierIdx +
+                  afterIdentifier.indexOf(oldDataMatch[0]) +
+                  oldDataMatch[0].length;
                 afterBoundary = currentDesc.substring(oldDataEnd).trim();
               }
             } else {
@@ -549,28 +562,28 @@
               beforeBoundary = currentDesc.trim();
             }
           }
-          
+
           // Build new description with boundaries
           // Identifier is now inside the boundary section
-          const dataSection = `ShiftSync Calendar - ID: ${SHIFT_SYNC_CALENDAR_IDENTIFIER}\nSHIFT_TYPES_JSON: ${JSON.stringify(shiftTypes)}`;
-          
+          const dataSection = `WorkSlots Calendar - ID: ${WORK_SLOTS_CALENDAR_IDENTIFIER}\nSLOT_TYPES_JSON: ${JSON.stringify(slotTypes)}`;
+
           const parts = [];
-          
+
           // Add user content before boundary
           if (beforeBoundary) {
             parts.push(beforeBoundary);
           }
-          
+
           // Add app-managed section with boundaries (identifier is inside)
-          parts.push(SHIFT_SYNC_DATA_START);
+          parts.push(WORK_SLOTS_DATA_START);
           parts.push(dataSection);
-          parts.push(SHIFT_SYNC_DATA_END);
-          
+          parts.push(WORK_SLOTS_DATA_END);
+
           // Add user content after boundary
           if (afterBoundary) {
             parts.push(afterBoundary);
           }
-          
+
           const newDescription = parts.join("\n\n");
 
           await gapi.client.calendar.calendars.patch({
@@ -581,8 +594,8 @@
           });
           return true;
         } catch (err) {
-          console.error("Error saving shift types to calendar:", err);
-          showToast("Error saving shift types. Check console.");
+          console.error("Error saving slot types to calendar:", err);
+          showToast("Error saving slot types. Check console.");
           return false;
         }
       }
@@ -634,12 +647,12 @@
           cell.appendChild(dayNum);
 
           if (schedule[dateKey]) {
-            const shift = shiftTypes.find((s) => s.id == schedule[dateKey]);
-            if (shift) {
+            const slot = slotTypes.find((s) => s.id == schedule[dateKey]);
+            if (slot) {
               const badge = document.createElement("div");
-              badge.className = "shift-badge text-white";
-              badge.style.backgroundColor = getShiftColorHex(shift);
-              badge.innerText = `${shift.name} (${shift.start})`;
+              badge.className = "slot-badge text-white";
+              badge.style.backgroundColor = getSlotColorHex(slot);
+              badge.innerText = `${slot.name} (${slot.start})`;
               cell.appendChild(badge);
             }
           }
@@ -658,30 +671,30 @@
           currentYear--;
         }
         renderCalendar();
-        // Load shifts from Google Calendar when month changes (if authenticated)
+        // Load slots from Google Calendar when month changes (if authenticated)
         if (gapi.client.getToken() && selectedCalendarId) {
-          loadShiftsFromCalendar();
+          loadSlotsFromCalendar();
         }
       }
 
-      function renderShiftTypes() {
-        const list = document.getElementById("shiftTypeList");
+      function renderSlotTypes() {
+        const list = document.getElementById("slotTypeList");
         list.innerHTML = "";
-        shiftTypes.forEach((shift) => {
+        slotTypes.forEach((slot) => {
           const div = document.createElement("div");
           div.className =
             "p-3 bg-slate-50 rounded-lg border border-slate-100 space-y-2";
           div.innerHTML = `
                     <div class="flex justify-between items-center">
-                        <input type="text" value="${shift.name}" onchange="updateShift(${shift.id}, 'name', this.value)" class="bg-transparent font-bold text-sm w-24 outline-none focus:text-indigo-600">
-                        <button onclick="removeShiftType(${shift.id})" class="text-slate-400 hover:text-red-500">
+                        <input type="text" value="${slot.name}" onchange="updateSlot(${slot.id}, 'name', this.value)" class="bg-transparent font-bold text-sm w-24 outline-none focus:text-indigo-600">
+                        <button onclick="removeSlotType(${slot.id})" class="text-slate-400 hover:text-red-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                         </button>
                     </div>
                     <div class="flex items-center gap-2 text-xs text-slate-500">
-                        <input type="time" value="${shift.start}" onchange="updateShift(${shift.id}, 'start', this.value)" class="bg-white border rounded px-1">
+                        <input type="time" value="${slot.start}" onchange="updateSlot(${slot.id}, 'start', this.value)" class="bg-white border rounded px-1">
                         <span>to</span>
-                        <input type="time" value="${shift.end}" onchange="updateShift(${shift.id}, 'end', this.value)" class="bg-white border rounded px-1">
+                        <input type="time" value="${slot.end}" onchange="updateSlot(${slot.id}, 'end', this.value)" class="bg-white border rounded px-1">
                     </div>
                     <div class="flex items-center gap-2 text-xs text-slate-500">
                         <span class="font-medium">Color</span>
@@ -689,22 +702,26 @@
                           <button
                             type="button"
                             class="w-6 h-6 rounded-full border border-slate-200 shadow-sm hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                            style="background-color: ${getShiftColorHex(shift)}"
-                            onclick="toggleShiftColorPicker(${shift.id})"
+                            style="background-color: ${getSlotColorHex(slot)}"
+                            onclick="toggleSlotColorPicker(${slot.id})"
                             ${googleEventColors ? "" : "disabled"}
                           ></button>
-                          ${!googleEventColors ? `
+                          ${
+                            !googleEventColors
+                              ? `
                           <div class="color-tooltip">
                             Please log in to select colors
                           </div>
-                          ` : ""}
+                          `
+                              : ""
+                          }
                           <div
-                            id="shiftColorMenu_${shift.id}"
+                            id="slotColorMenu_${slot.id}"
                             class="hidden absolute top-full left-0 mt-1 p-2 bg-white border border-slate-200 rounded-xl shadow-xl z-50"
                             style="min-width: max-content;"
                           >
                             <div class="grid grid-cols-6 gap-2">
-                              ${renderColorSwatches(shift.id, shift.colorId)}
+                              ${renderColorSwatches(slot.id, slot.colorId)}
                             </div>
                           </div>
                         </div>
@@ -714,10 +731,10 @@
         });
       }
 
-      async function addNewShiftType() {
+      async function addNewSlotType() {
         // Check if user is logged in
         if (!gapi.client.getToken()) {
-          showToast("Please log in to create shift types");
+          showToast("Please log in to create slot types");
           return;
         }
 
@@ -728,48 +745,48 @@
         }
 
         const id = Date.now();
-        shiftTypes.push({
+        slotTypes.push({
           id,
-          name: "New Shift",
+          name: "New Slot",
           start: "09:00",
           end: "17:00",
           colorId: "1",
           color: "#6366f1",
         });
-        renderShiftTypes();
+        renderSlotTypes();
         if (selectedCalendarId) {
-          await saveShiftTypesToCalendar(selectedCalendarId, shiftTypes);
+          await saveSlotTypesToCalendar(selectedCalendarId, slotTypes);
         }
       }
 
-      async function updateShift(id, field, value) {
-        const shift = shiftTypes.find((s) => s.id === id);
-        if (shift) {
-          shift[field] = value;
+      async function updateSlot(id, field, value) {
+        const slot = slotTypes.find((s) => s.id === id);
+        if (slot) {
+          slot[field] = value;
           if (
             field === "colorId" &&
             googleEventColors?.[String(value)]?.background
           ) {
             // Keep legacy color updated for UI fallbacks.
-            shift.color = googleEventColors[String(value)].background;
+            slot.color = googleEventColors[String(value)].background;
           }
         }
-        renderShiftTypes();
+        renderSlotTypes();
         renderCalendar();
         if (selectedCalendarId) {
-          await saveShiftTypesToCalendar(selectedCalendarId, shiftTypes);
+          await saveSlotTypesToCalendar(selectedCalendarId, slotTypes);
         }
       }
 
-      async function removeShiftType(id) {
-        shiftTypes = shiftTypes.filter((s) => s.id !== id);
+      async function removeSlotType(id) {
+        slotTypes = slotTypes.filter((s) => s.id !== id);
         Object.keys(schedule).forEach((k) => {
           if (schedule[k] == id) delete schedule[k];
         });
-        renderShiftTypes();
+        renderSlotTypes();
         renderCalendar();
         if (selectedCalendarId) {
-          await saveShiftTypesToCalendar(selectedCalendarId, shiftTypes);
+          await saveSlotTypesToCalendar(selectedCalendarId, slotTypes);
         }
       }
 
@@ -788,16 +805,16 @@
 
         selectedDate = dateKey;
         document.getElementById("modalTitle").innerText =
-          `Assign Shift: ${dayNum} ${document.getElementById("currentMonthDisplay").innerText}`;
-        const container = document.getElementById("modalShiftOptions");
-        container.innerHTML = `<button onclick="assignShift(null)" class="w-full text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm font-medium transition-all">No Shift (Clear)</button>`;
+          `Assign Slot: ${dayNum} ${document.getElementById("currentMonthDisplay").innerText}`;
+        const container = document.getElementById("modalSlotOptions");
+        container.innerHTML = `<button onclick="assignSlot(null)" class="w-full text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm font-medium transition-all">No Slot (Clear)</button>`;
 
-        shiftTypes.forEach((shift) => {
+        slotTypes.forEach((slot) => {
           const btn = document.createElement("button");
           btn.className =
             "w-full text-left p-3 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 text-sm font-medium transition-all flex justify-between items-center";
-          btn.onclick = () => assignShift(shift.id);
-          btn.innerHTML = `<span>${shift.name} <span class="text-slate-400 font-normal ml-2">${shift.start} - ${shift.end}</span></span><div class="w-3 h-3 rounded-full" style="background-color: ${getShiftColorHex(shift)}"></div>`;
+          btn.onclick = () => assignSlot(slot.id);
+          btn.innerHTML = `<span>${slot.name} <span class="text-slate-400 font-normal ml-2">${slot.start} - ${slot.end}</span></span><div class="w-3 h-3 rounded-full" style="background-color: ${getSlotColorHex(slot)}"></div>`;
           container.appendChild(btn);
         });
         document.getElementById("assignModal").classList.remove("hidden");
@@ -807,9 +824,9 @@
         document.getElementById("assignModal").classList.add("hidden");
       }
 
-      function assignShift(shiftId) {
-        if (shiftId === null) delete schedule[selectedDate];
-        else schedule[selectedDate] = shiftId;
+      function assignSlot(slotId) {
+        if (slotId === null) delete schedule[selectedDate];
+        else schedule[selectedDate] = slotId;
         // No longer storing in localStorage - schedule is only in memory until synced
         renderCalendar();
         closeModal();
@@ -851,16 +868,15 @@
           showToast("Connected to Google!");
 
           try {
-            // Find or create ShiftSync calendar
-            await findOrCreateShiftSyncCalendar();
+            // Find or create WorkSlots calendar
+            await findOrCreateWorkSlotsCalendar();
 
-            // Load shift types from calendar
-            const loadedShiftTypes = await loadShiftTypesFromCalendar(
-              selectedCalendarId,
-            );
-            if (loadedShiftTypes && loadedShiftTypes.length > 0) {
-              shiftTypes = loadedShiftTypes;
-              renderShiftTypes();
+            // Load slot types from calendar
+            const loadedSlotTypes =
+              await loadSlotTypesFromCalendar(selectedCalendarId);
+            if (loadedSlotTypes && loadedSlotTypes.length > 0) {
+              slotTypes = loadedSlotTypes;
+              renderSlotTypes();
             }
 
             // Load event colors for color picker
@@ -870,10 +886,10 @@
             document.getElementById("refreshBtn").classList.remove("hidden");
             document.getElementById("refreshBtn").disabled = false;
             document.getElementById("syncBtn").disabled = false;
-            document.getElementById("addShiftTypeBtn").disabled = false;
+            document.getElementById("addSlotTypeBtn").disabled = false;
 
-            // Load existing shifts from calendar
-            await loadShiftsFromCalendar();
+            // Load existing slots from calendar
+            await loadSlotsFromCalendar();
           } catch (err) {
             console.error("Error during authentication setup:", err);
             showToast("Error setting up calendar. Check console.");
@@ -893,13 +909,13 @@
           document.getElementById("signOutBtn").classList.add("hidden");
           document.getElementById("refreshBtn").classList.add("hidden");
           document.getElementById("syncBtn").disabled = true;
-          document.getElementById("addShiftTypeBtn").disabled = true;
+          document.getElementById("addSlotTypeBtn").disabled = true;
           selectedCalendarId = null;
           schedule = {}; // Clear schedule on sign out
-          shiftTypes = []; // Clear shift types on sign out
+          slotTypes = []; // Clear slot types on sign out
           googleEventColors = null;
           renderCalendar();
-          renderShiftTypes();
+          renderSlotTypes();
           showToast("Signed out.");
         }
       }
@@ -909,16 +925,16 @@
         try {
           const resp = await gapi.client.calendar.colors.get();
           googleEventColors = resp?.result?.event || null;
-          renderShiftTypes();
+          renderSlotTypes();
           renderCalendar();
         } catch (err) {
           console.error("Error loading event colors:", err);
           googleEventColors = null;
-          renderShiftTypes();
+          renderSlotTypes();
         }
       }
 
-      async function loadShiftsFromCalendar() {
+      async function loadSlotsFromCalendar() {
         if (!gapi.client.getToken()) {
           showToast("Please log in first");
           return;
@@ -929,7 +945,7 @@
           return;
         }
 
-        showToast("Loading shifts from Google Calendar...");
+        showToast("Loading slots from Google Calendar...");
 
         try {
           // Calculate the date range for the current month
@@ -959,7 +975,7 @@
             calendarId: selectedCalendarId,
             timeMin: timeMin,
             timeMax: timeMax,
-            privateExtendedProperty: SHIFT_SYNC_PRIVATE_FILTER,
+            privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
             singleEvents: true,
             orderBy: "startTime",
           });
@@ -974,24 +990,24 @@
             }
           });
 
-          // Process each event and match to shift types
+          // Process each event and match to slot types
           for (const event of events) {
-            // Verify it's a ShiftSync event (ONLY this flag)
-            const isShiftSyncEvent =
-              event.extendedProperties?.private?.shiftSyncManaged ===
-              SHIFT_SYNC_MANAGED_VALUE;
-            if (!isShiftSyncEvent || !event.summary) {
+            // Verify it's a WorkSlots event (ONLY this flag)
+            const isWorkSlotsEvent =
+              event.extendedProperties?.private?.workSlotsManaged ===
+              WORK_SLOTS_MANAGED_VALUE;
+            if (!isWorkSlotsEvent || !event.summary) {
               continue;
             }
 
-            // Summary is the shift name
-            const shiftName = event.summary.trim();
+            // Summary is the slot name
+            const slotName = event.summary.trim();
 
-            // Find matching shift type by name
-            const shift = shiftTypes.find((s) => s.name === shiftName);
-            if (!shift) {
+            // Find matching slot type by name
+            const slot = slotTypes.find((s) => s.name === slotName);
+            if (!slot) {
               console.warn(
-                `Shift type "${shiftName}" not found in local shift types`,
+                `Slot type "${slotName}" not found in local slot types`,
               );
               continue;
             }
@@ -1005,15 +1021,15 @@
 
             // Only add if it's in the current month
             if (dateKey.startsWith(monthPrefix)) {
-              schedule[dateKey] = shift.id;
+              schedule[dateKey] = slot.id;
             }
           }
 
           renderCalendar();
-          showToast("Shifts loaded from Google Calendar!");
+          showToast("Slots loaded from Google Calendar!");
         } catch (err) {
-          console.error("Error loading shifts:", err);
-          showToast("Error loading shifts. Check console.");
+          console.error("Error loading slots:", err);
+          showToast("Error loading slots. Check console.");
         }
       }
 
@@ -1028,14 +1044,25 @@
           return;
         }
 
-        showToast(`Syncing shifts...`);
+        showToast(`Syncing slots...`);
 
         try {
           const monthPrefix = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}`;
-          const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+          const daysInMonth = new Date(
+            currentYear,
+            currentMonth + 1,
+            0,
+          ).getDate();
 
-          // Fetch all ShiftSync-managed events in the month (single API call)
-          const monthTimeMin = new Date(currentYear, currentMonth, 1, 0, 0, 0).toISOString();
+          // Fetch all WorkSlots-managed events in the month (single API call)
+          const monthTimeMin = new Date(
+            currentYear,
+            currentMonth,
+            1,
+            0,
+            0,
+            0,
+          ).toISOString();
           const monthTimeMax = new Date(
             currentYear,
             currentMonth,
@@ -1049,7 +1076,7 @@
             calendarId: selectedCalendarId,
             timeMin: monthTimeMin,
             timeMax: monthTimeMax,
-            privateExtendedProperty: SHIFT_SYNC_PRIVATE_FILTER,
+            privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
             singleEvents: true,
             orderBy: "startTime",
           });
@@ -1059,10 +1086,10 @@
           // Group managed events by day (YYYY-MM-DD)
           const existingByDateKey = {};
           for (const event of monthEvents) {
-            const isShiftSyncEvent =
-              event.extendedProperties?.private?.shiftSyncManaged ===
-              SHIFT_SYNC_MANAGED_VALUE;
-            if (!isShiftSyncEvent) continue;
+            const isWorkSlotsEvent =
+              event.extendedProperties?.private?.workSlotsManaged ===
+              WORK_SLOTS_MANAGED_VALUE;
+            if (!isWorkSlotsEvent) continue;
 
             const startDateTime = event.start?.dateTime || event.start?.date;
             if (!startDateTime) continue;
@@ -1076,8 +1103,8 @@
           }
 
           // For each day of the month:
-          // - If schedule has no shift: delete managed event(s) for that day (Clear behavior)
-          // - If schedule has shift: delete managed event(s) then insert the selected shift
+          // - If schedule has no slot: delete managed event(s) for that day (Clear behavior)
+          // - If schedule has slot: delete managed event(s) then insert the selected slot
           for (let d = 1; d <= daysInMonth; d++) {
             const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 
@@ -1089,22 +1116,22 @@
               });
             }
 
-            const shiftId = schedule[dateStr];
-            if (!shiftId) {
+            const slotId = schedule[dateStr];
+            if (!slotId) {
               continue;
             }
 
-            const shift = shiftTypes.find((s) => s.id == shiftId);
-            if (!shift) continue;
+            const slot = slotTypes.find((s) => s.id == slotId);
+            if (!slot) continue;
 
-            let startDate = new Date(dateStr + "T" + shift.start);
-            let endDate = new Date(dateStr + "T" + shift.end);
+            let startDate = new Date(dateStr + "T" + slot.start);
+            let endDate = new Date(dateStr + "T" + slot.end);
             if (endDate <= startDate) endDate.setDate(endDate.getDate() + 1);
 
             const newEvent = {
-              summary: `${shift.name}`,
-              description: "Created via ShiftSync App",
-              ...(shift.colorId ? { colorId: String(shift.colorId) } : {}),
+              summary: `${slot.name}`,
+              description: "Created via WorkSlots",
+              ...(slot.colorId ? { colorId: String(slot.colorId) } : {}),
               start: {
                 dateTime: startDate.toISOString(),
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -1115,7 +1142,7 @@
               },
               extendedProperties: {
                 private: {
-                  shiftSyncManaged: SHIFT_SYNC_MANAGED_VALUE,
+                  workSlotsManaged: WORK_SLOTS_MANAGED_VALUE,
                 },
               },
             };
@@ -1126,8 +1153,8 @@
             });
           }
           showToast("Month synced and updated!");
-          // Reload shifts from calendar to ensure display is accurate
-          await loadShiftsFromCalendar();
+          // Reload slots from calendar to ensure display is accurate
+          await loadSlotsFromCalendar();
         } catch (err) {
           console.error(err);
           showToast("Error syncing. Check console.");
@@ -1145,13 +1172,13 @@
       }
 
       window.onload = () => {
-        renderShiftTypes();
+        renderSlotTypes();
         renderCalendar();
         gapiLoaded();
         gisLoaded();
         document.addEventListener("click", (e) => {
           if (!e.target.closest('[data-color-picker="true"]')) {
-            closeAllShiftColorPickers();
+            closeAllSlotColorPickers();
           }
         });
 
@@ -1160,16 +1187,15 @@
         setTimeout(async () => {
           if (gapi.client && gapi.client.getToken()) {
             try {
-              // Find or create ShiftSync calendar
-              await findOrCreateShiftSyncCalendar();
+              // Find or create WorkSlots calendar
+              await findOrCreateWorkSlotsCalendar();
 
-              // Load shift types from calendar
-              const loadedShiftTypes = await loadShiftTypesFromCalendar(
-                selectedCalendarId,
-              );
-              if (loadedShiftTypes && loadedShiftTypes.length > 0) {
-                shiftTypes = loadedShiftTypes;
-                renderShiftTypes();
+              // Load slot types from calendar
+              const loadedSlotTypes =
+                await loadSlotTypesFromCalendar(selectedCalendarId);
+              if (loadedSlotTypes && loadedSlotTypes.length > 0) {
+                slotTypes = loadedSlotTypes;
+                renderSlotTypes();
               }
 
               // Load event colors
@@ -1179,12 +1205,12 @@
               document.getElementById("refreshBtn").classList.remove("hidden");
               document.getElementById("refreshBtn").disabled = false;
               document.getElementById("syncBtn").disabled = false;
-              document.getElementById("addShiftTypeBtn").disabled = false;
+              document.getElementById("addSlotTypeBtn").disabled = false;
               document.getElementById("authBtn").classList.add("hidden");
               document.getElementById("signOutBtn").classList.remove("hidden");
 
-              // Load existing shifts from calendar
-              await loadShiftsFromCalendar();
+              // Load existing slots from calendar
+              await loadSlotsFromCalendar();
             } catch (err) {
               console.error("Error loading on page init:", err);
             }
