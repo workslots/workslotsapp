@@ -225,7 +225,8 @@
           <button
             id="authBtn"
             onclick="handleAuthClick()"
-            class="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 font-medium transition-all text-sm"
+            disabled
+            class="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 font-medium transition-all text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <img
               src="https://www.gstatic.com/images/branding/product/1x/g_suite_2020q4_48dp.png"
@@ -1069,11 +1070,17 @@
       }
 
       function checkBeforeStart() {
-        if (gapiInited && gisInited)
+        if (gapiInited && gisInited) {
+          document.getElementById("authBtn").disabled = false;
           document.getElementById("syncBtn").disabled = false;
+        }
       }
 
       function handleAuthClick() {
+        if (!gapiInited || !gisInited) {
+          showToast("Still loading Google APIs, please wait...");
+          return;
+        }
         tokenClient.callback = async (resp) => {
           if (resp.error !== undefined) throw resp;
           document.getElementById("authBtn").classList.add("hidden");
@@ -1463,6 +1470,7 @@
         // and skip Google API initialization entirely.
         if (isDevMode) {
           const authBtn = document.getElementById("authBtn");
+          authBtn.disabled = false;
           authBtn.onclick = handleDevLogin;
           authBtn.innerHTML = `<span>&#9881; Dev Login</span>`;
         } else {
