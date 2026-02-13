@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WorkSlots</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236E5F50'/><svg x='4' y='4' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'/></svg></svg>" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236E5F50'/><svg x='4' y='4' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'/></svg></svg>"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -12,41 +16,41 @@
           extend: {
             colors: {
               neutral: {
-                50: 'var(--neutral-50)',
-                100: 'var(--neutral-100)',
-                200: 'var(--neutral-200)',
-                300: 'var(--neutral-300)',
-                400: 'var(--neutral-400)',
-                500: 'var(--neutral-500)',
-                600: 'var(--neutral-600)',
-                700: 'var(--neutral-700)',
-                800: 'var(--neutral-800)',
-                900: 'var(--neutral-900)',
+                50: "var(--neutral-50)",
+                100: "var(--neutral-100)",
+                200: "var(--neutral-200)",
+                300: "var(--neutral-300)",
+                400: "var(--neutral-400)",
+                500: "var(--neutral-500)",
+                600: "var(--neutral-600)",
+                700: "var(--neutral-700)",
+                800: "var(--neutral-800)",
+                900: "var(--neutral-900)",
               },
               primary: {
-                50: 'var(--primary-50)',
-                100: 'var(--primary-100)',
-                200: 'var(--primary-200)',
-                300: 'var(--primary-300)',
-                400: 'var(--primary-400)',
-                500: 'var(--primary-500)',
-                600: 'var(--primary-600)',
-                700: 'var(--primary-700)',
-                800: 'var(--primary-800)',
-                900: 'var(--primary-900)',
+                50: "var(--primary-50)",
+                100: "var(--primary-100)",
+                200: "var(--primary-200)",
+                300: "var(--primary-300)",
+                400: "var(--primary-400)",
+                500: "var(--primary-500)",
+                600: "var(--primary-600)",
+                700: "var(--primary-700)",
+                800: "var(--primary-800)",
+                900: "var(--primary-900)",
               },
               surface: {
-                DEFAULT: 'var(--surface)',
-                hover: 'var(--surface-hover)',
+                DEFAULT: "var(--surface)",
+                hover: "var(--surface-hover)",
               },
-              'on-primary': 'var(--on-primary)',
-              'on-toast': 'var(--on-toast)',
+              "on-primary": "var(--on-primary)",
+              "on-toast": "var(--on-toast)",
               danger: {
-                DEFAULT: 'var(--danger)',
-                light: 'var(--danger-light)',
-                hover: 'var(--danger-hover)',
+                DEFAULT: "var(--danger)",
+                light: "var(--danger-light)",
+                hover: "var(--danger-hover)",
               },
-              overlay: 'var(--overlay)',
+              overlay: "var(--overlay)",
             },
           },
         },
@@ -54,84 +58,87 @@
     </script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
+    <script src="https://alcdn.msauth.net/browser/2.35.0/js/msal-browser.min.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
       /* ── Light Mode (Cool Greige) ── */
       :root {
-        --neutral-50: #F8F7F5;
-        --neutral-100: #F0EEEB;
-        --neutral-200: #D8D3CD;
-        --neutral-300: #C0B9B0;
-        --neutral-400: #A09890;
-        --neutral-500: #7A736B;
-        --neutral-600: #5C5650;
-        --neutral-700: #4A433C;
-        --neutral-800: #3A3530;
-        --neutral-900: #33302C;
+        --neutral-50: #f8f7f5;
+        --neutral-100: #f0eeeb;
+        --neutral-200: #d8d3cd;
+        --neutral-300: #c0b9b0;
+        --neutral-400: #a09890;
+        --neutral-500: #7a736b;
+        --neutral-600: #5c5650;
+        --neutral-700: #4a433c;
+        --neutral-800: #3a3530;
+        --neutral-900: #33302c;
 
-        --primary-50: #F0EEEB;
-        --primary-100: #E0DBD5;
-        --primary-200: #C0B5A8;
-        --primary-300: #A89888;
-        --primary-400: #8D7B6A;
-        --primary-500: #7A6B5C;
-        --primary-600: #6E5F50;
-        --primary-700: #5C4F42;
-        --primary-800: #4A3F35;
-        --primary-900: #3A3128;
+        --primary-50: #f0eeeb;
+        --primary-100: #e0dbd5;
+        --primary-200: #c0b5a8;
+        --primary-300: #a89888;
+        --primary-400: #8d7b6a;
+        --primary-500: #7a6b5c;
+        --primary-600: #6e5f50;
+        --primary-700: #5c4f42;
+        --primary-800: #4a3f35;
+        --primary-900: #3a3128;
 
-        --surface: #FFFFFF;
-        --surface-hover: #FAFAF8;
-        --on-primary: #FFFFFF;
-        --on-toast: #FFFFFF;
+        --surface: #ffffff;
+        --surface-hover: #fafaf8;
+        --on-primary: #ffffff;
+        --on-toast: #ffffff;
         --overlay: rgba(0, 0, 0, 0.5);
-        --danger: #DC2626;
-        --danger-light: #FEF2F2;
-        --danger-hover: #F87171;
+        --danger: #dc2626;
+        --danger-light: #fef2f2;
+        --danger-hover: #f87171;
         --neutral-50-alpha: rgba(248, 247, 245, 0.5);
         --ring-selected: rgba(51, 48, 44, 0.2);
       }
 
       /* ── Dark Mode (Cool Greige) ── */
       .dark {
-        --neutral-50: #1A1918;
+        --neutral-50: #1a1918;
         --neutral-100: #252320;
         --neutral-200: #353230;
         --neutral-300: #454240;
-        --neutral-400: #605C58;
-        --neutral-500: #807A74;
-        --neutral-600: #A09890;
-        --neutral-700: #B8B1A8;
-        --neutral-800: #D8D3CD;
-        --neutral-900: #F0EEEB;
+        --neutral-400: #605c58;
+        --neutral-500: #807a74;
+        --neutral-600: #a09890;
+        --neutral-700: #b8b1a8;
+        --neutral-800: #d8d3cd;
+        --neutral-900: #f0eeeb;
 
-        --primary-50: #2A2725;
-        --primary-100: #3A3530;
+        --primary-50: #2a2725;
+        --primary-100: #3a3530;
         --primary-200: #504840;
-        --primary-300: #685E55;
-        --primary-400: #8D7B6A;
-        --primary-500: #A89888;
-        --primary-600: #C0AFA0;
-        --primary-700: #D0C2B5;
-        --primary-800: #E0D8D0;
-        --primary-900: #F0EBE5;
+        --primary-300: #685e55;
+        --primary-400: #8d7b6a;
+        --primary-500: #a89888;
+        --primary-600: #c0afa0;
+        --primary-700: #d0c2b5;
+        --primary-800: #e0d8d0;
+        --primary-900: #f0ebe5;
 
         --surface: #222120;
-        --surface-hover: #2A2826;
-        --on-primary: #1A1918;
-        --on-toast: #1A1918;
+        --surface-hover: #2a2826;
+        --on-primary: #1a1918;
+        --on-toast: #1a1918;
         --overlay: rgba(0, 0, 0, 0.7);
-        --danger: #EF4444;
-        --danger-light: #3B1C1C;
-        --danger-hover: #DC2626;
+        --danger: #ef4444;
+        --danger-light: #3b1c1c;
+        --danger-hover: #dc2626;
         --neutral-50-alpha: rgba(26, 25, 24, 0.5);
         --ring-selected: rgba(240, 238, 235, 0.2);
       }
 
       body {
         font-family: "Inter", sans-serif;
-        transition: background-color 0.3s, color 0.3s;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
       }
       .calendar-grid {
         display: grid;
@@ -223,8 +230,8 @@
 
         <div class="flex items-center gap-3">
           <button
-            id="authBtn"
-            onclick="handleAuthClick()"
+            id="authGoogleBtn"
+            onclick="loginWith('google')"
             class="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 font-medium transition-all text-sm"
           >
             <img
@@ -235,8 +242,25 @@
             <span>Connect Google</span>
           </button>
           <button
+            id="authOutlookBtn"
+            onclick="loginWith('outlook')"
+            class="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 font-medium transition-all text-sm"
+          >
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 21 21"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect x="1" y="1" width="9" height="9" fill="#f25022" />
+              <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
+              <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
+              <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
+            </svg>
+            <span>Connect Outlook</span>
+          </button>
+          <button
             id="signOutBtn"
-            onclick="handleSignoutClick()"
+            onclick="handleSignOut()"
             class="hidden px-4 py-2 text-sm text-danger hover:bg-danger-light rounded-lg"
           >
             Sign Out
@@ -255,11 +279,35 @@
             class="p-2 rounded-lg border border-neutral-200 hover:bg-neutral-100 transition-all text-neutral-600"
             title="Toggle dark mode"
           >
-            <svg id="themeIconSun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            <svg
+              id="themeIconSun"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 hidden"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
             </svg>
-            <svg id="themeIconMoon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            <svg
+              id="themeIconMoon"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
             </svg>
           </button>
         </div>
@@ -271,7 +319,9 @@
     >
       <!-- Sidebar: Slot Definitions -->
       <div class="lg:col-span-1 space-y-6">
-        <div class="bg-surface p-6 rounded-xl shadow-sm border border-neutral-200">
+        <div
+          class="bg-surface p-6 rounded-xl shadow-sm border border-neutral-200"
+        >
           <h2
             class="text-sm font-bold text-neutral-500 uppercase tracking-wider mb-4"
           >
@@ -289,7 +339,6 @@
             + Add New Slot Type
           </button>
         </div>
-
       </div>
 
       <!-- Main Content: Calendar -->
@@ -311,7 +360,7 @@
                 id="refreshBtn"
                 onclick="loadSlotsFromCalendar()"
                 class="p-2 hover:bg-neutral-100 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hidden"
-                title="Reload slots from Google Calendar"
+                title="Reload slots from calendar"
                 disabled
               >
                 <svg
@@ -415,11 +464,11 @@
             Instructions
           </h3>
           <p class="text-xs text-primary-700 leading-relaxed">
-            1. Log in with your Google account.<br />
+            1. Log in with your Google or Microsoft account.<br />
             2. Define your slots.<br />
             3. Click a date to assign a slot.<br />
             4. Navigate to the month you want to sync.<br />
-            5. Click "Sync Current Month" to update your Google Calendar.
+            5. Click "Sync Current Month" to update your calendar.
           </p>
         </div>
       </div>
@@ -451,8 +500,9 @@
     >
       <div class="bg-surface rounded-2xl shadow-2xl p-6 max-w-sm w-full">
         <h3 class="text-lg font-bold mb-2 text-neutral-800">Confirm Sync</h3>
-        <p class="text-sm text-neutral-600 mb-6">
-          Are you sure you want to sync the current month to your Google Calendar? This will update existing events and create new ones as needed.
+        <p id="syncConfirmText" class="text-sm text-neutral-600 mb-6">
+          Are you sure you want to sync the current month? This will update
+          existing events and create new ones as needed.
         </p>
         <div class="flex justify-end gap-3">
           <button
@@ -482,100 +532,619 @@
     <script>
       // ── Theme (dark mode) ──
       function initTheme() {
-        const saved = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (saved === 'dark' || (!saved && prefersDark)) {
-          document.documentElement.classList.add('dark');
+        const saved = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("dark");
         }
         updateThemeIcon();
       }
 
       function toggleTheme() {
-        document.documentElement.classList.toggle('dark');
-        const isDark = document.documentElement.classList.contains('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        document.documentElement.classList.toggle("dark");
+        const isDark = document.documentElement.classList.contains("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
         updateThemeIcon();
       }
 
       function updateThemeIcon() {
-        const isDark = document.documentElement.classList.contains('dark');
-        document.getElementById('themeIconSun').classList.toggle('hidden', !isDark);
-        document.getElementById('themeIconMoon').classList.toggle('hidden', isDark);
+        const isDark = document.documentElement.classList.contains("dark");
+        document
+          .getElementById("themeIconSun")
+          .classList.toggle("hidden", !isDark);
+        document
+          .getElementById("themeIconMoon")
+          .classList.toggle("hidden", isDark);
       }
 
       initTheme();
 
-      // Dev mode: add ?dev to URL to simulate login with mock data for UI testing
-      const isDevMode = new URLSearchParams(window.location.search).has('dev');
+      // ── Dev mode ──
+      const isDevMode = new URLSearchParams(window.location.search).has("dev");
+      const devProviderParam = new URLSearchParams(window.location.search).get(
+        "dev",
+      );
 
-      // Provide minimal gapi/google mocks so the app doesn't crash in dev mode.
-      // Always force-override gapi.client because even if the CDN script loads,
-      // gapi.client won't exist until gapi.load("client") is called, which we
-      // skip in dev mode.
+      // Provide minimal gapi/google/msal mocks so CDN scripts don't crash in dev mode.
       if (isDevMode) {
         window.gapi = window.gapi || {};
         gapi.client = {
           _token: null,
-          getToken() { return this._token; },
-          setToken(t) { this._token = t || null; },
-          init() { return Promise.resolve(); },
+          getToken() {
+            return this._token;
+          },
+          setToken(t) {
+            this._token = t || null;
+          },
+          init() {
+            return Promise.resolve();
+          },
         };
-        gapi.load = gapi.load || function() {};
+        gapi.load = gapi.load || function () {};
 
         window.google = window.google || {};
         google.accounts = google.accounts || {};
         google.accounts.oauth2 = {
-          initTokenClient() { return {}; },
+          initTokenClient() {
+            return {};
+          },
           revoke() {},
         };
+
+        window.msal = window.msal || {};
+        msal.PublicClientApplication =
+          msal.PublicClientApplication || function () {};
       }
 
-       const CLIENT_ID =
-        "215553097336-6bktnv96gllnk4u7e24u2tf14a1ji9pp.apps.googleusercontent.com";
-      const API_KEY = "AIzaSyCnDviyu5RBWmZfaY7c7bIvtkcTwet_X04";
-      const DISCOVERY_DOC =
-        "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
-      const SCOPES =
-        "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
-      // Used to identify WorkSlots-managed events (make this hard-to-guess).
+      // ── Provider Capabilities ──
+      const PROVIDER_CAPABILITIES = {
+        google: {
+          eventColorPicker: true, // Google has 11 preset event color IDs
+        },
+        outlook: {
+          eventColorPicker: false, // Outlook uses categories — different model, disabled for now
+        },
+      };
+
+      // ── Shared Constants ──
       const WORK_SLOTS_MANAGED_VALUE =
         "workslots_9f6c2a7d4b1e4c3aa0d8f7e2c1b9a6d5";
-      const WORK_SLOTS_PRIVATE_FILTER = `workSlotsManaged=${WORK_SLOTS_MANAGED_VALUE}`;
-      // Used to identify WorkSlots calendar in description (make this hard-to-guess).
+      const WORK_SLOTS_CALENDAR_NAME = "WorkSlots";
       const WORK_SLOTS_CALENDAR_IDENTIFIER =
         "workslots_cal_8e7f3c9a2d1b5e4f6c8a0d3b7e2f1c9a";
-      const WORK_SLOTS_CALENDAR_NAME = "WorkSlots";
-      // Boundary markers for app-managed content in calendar description
-      const WORK_SLOTS_DATA_START = "--- WORKSLOTS DATA START ---";
-      const WORK_SLOTS_DATA_END = "--- WORKSLOTS DATA END ---";
 
-      let tokenClient;
-      let gapiInited = false;
-      let gisInited = false;
+      // ── Google Calendar Provider ──
+      const GoogleCalendarProvider = (function () {
+        const CLIENT_ID =
+          "276844562286-biq705124253b75ro3fgj2o0garfci2v.apps.googleusercontent.com";
+        const API_KEY = "AIzaSyCnDviyu5RBWmZfaY7c7bIvtkcTwet_X04";
+        const DISCOVERY_DOC =
+          "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
+        const SCOPES =
+          "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
+        const WORK_SLOTS_PRIVATE_FILTER = `workSlotsManaged=${WORK_SLOTS_MANAGED_VALUE}`;
+        const WORK_SLOTS_DATA_START = "--- WORKSLOTS DATA START ---";
+        const WORK_SLOTS_DATA_END = "--- WORKSLOTS DATA END ---";
 
+        let tokenClient;
+
+        return {
+          name: "google",
+          displayName: "Google Calendar",
+          capabilities: PROVIDER_CAPABILITIES.google,
+
+          async init() {
+            await new Promise((resolve) => {
+              gapi.load("client", async () => {
+                await gapi.client.init({
+                  apiKey: API_KEY,
+                  discoveryDocs: [DISCOVERY_DOC],
+                });
+                resolve();
+              });
+            });
+            tokenClient = google.accounts.oauth2.initTokenClient({
+              client_id: CLIENT_ID,
+              scope: SCOPES,
+              callback: "",
+            });
+          },
+
+          isAuthenticated() {
+            return !!(
+              gapi.client &&
+              gapi.client.getToken &&
+              gapi.client.getToken()
+            );
+          },
+
+          authenticate() {
+            return new Promise((resolve, reject) => {
+              tokenClient.callback = (resp) => {
+                if (resp.error !== undefined) {
+                  reject(resp);
+                  return;
+                }
+                resolve();
+              };
+              if (gapi.client.getToken() === null) {
+                tokenClient.requestAccessToken({ prompt: "consent" });
+              } else {
+                tokenClient.requestAccessToken({ prompt: "" });
+              }
+            });
+          },
+
+          signOut() {
+            const token = gapi.client.getToken();
+            if (token !== null) {
+              google.accounts.oauth2.revoke(token.access_token);
+              gapi.client.setToken("");
+            }
+          },
+
+          async findOrCreateWorkSlotsCalendar() {
+            const response = await gapi.client.calendar.calendarList.list();
+            const calendars = response.result.items || [];
+
+            for (const cal of calendars) {
+              try {
+                const fullCal = await gapi.client.calendar.calendars.get({
+                  calendarId: cal.id,
+                });
+                const description = fullCal.result.description || "";
+                if (description.includes(WORK_SLOTS_CALENDAR_IDENTIFIER)) {
+                  showToast("Using WorkSlots calendar");
+                  return cal.id;
+                }
+              } catch (err) {
+                console.warn(
+                  `Could not fetch calendar ${cal.id} details:`,
+                  err,
+                );
+                continue;
+              }
+            }
+
+            // Not found — create a new calendar
+            const initialDescription = `${WORK_SLOTS_DATA_START}\nWorkSlots Calendar - ID: ${WORK_SLOTS_CALENDAR_IDENTIFIER}\nSLOT_TYPES_JSON: []\n${WORK_SLOTS_DATA_END}`;
+            const newCalendar = await gapi.client.calendar.calendars.insert({
+              resource: {
+                summary: WORK_SLOTS_CALENDAR_NAME,
+                description: initialDescription,
+              },
+            });
+            showToast("Created WorkSlots calendar");
+            return newCalendar.result.id;
+          },
+
+          async loadSlotTypesFromCalendar(calendarId) {
+            if (!calendarId) return null;
+            try {
+              const response = await gapi.client.calendar.calendars.get({
+                calendarId: calendarId,
+              });
+              const description = response.result.description || "";
+              const startIdx = description.indexOf(WORK_SLOTS_DATA_START);
+              const endIdx = description.indexOf(WORK_SLOTS_DATA_END);
+              if (startIdx === -1 || endIdx === -1 || startIdx >= endIdx)
+                return null;
+              const dataSection = description
+                .substring(startIdx + WORK_SLOTS_DATA_START.length, endIdx)
+                .trim();
+              const slotTypesMatch = dataSection.match(
+                /SLOT_TYPES_JSON:\s*(\[.*\]|\{.*\})/s,
+              );
+              if (slotTypesMatch) {
+                try {
+                  const parsed = JSON.parse(slotTypesMatch[1]);
+                  return Array.isArray(parsed) ? parsed : null;
+                } catch (parseErr) {
+                  console.error(
+                    "Error parsing slot types from description:",
+                    parseErr,
+                  );
+                  return null;
+                }
+              }
+              return null;
+            } catch (err) {
+              console.error("Error loading slot types from calendar:", err);
+              return null;
+            }
+          },
+
+          async saveSlotTypesToCalendar(calendarId, slotTypesData) {
+            if (!calendarId) return false;
+            try {
+              const currentCal = await gapi.client.calendar.calendars.get({
+                calendarId: calendarId,
+              });
+              const currentDesc = currentCal.result.description || "";
+              const startIdx = currentDesc.indexOf(WORK_SLOTS_DATA_START);
+              const endIdx = currentDesc.indexOf(WORK_SLOTS_DATA_END);
+              let beforeBoundary = "";
+              let afterBoundary = "";
+              if (startIdx !== -1 && endIdx !== -1 && startIdx < endIdx) {
+                beforeBoundary = currentDesc.substring(0, startIdx).trim();
+                afterBoundary = currentDesc
+                  .substring(endIdx + WORK_SLOTS_DATA_END.length)
+                  .trim();
+              } else {
+                if (currentDesc.includes(WORK_SLOTS_CALENDAR_IDENTIFIER)) {
+                  const identifierIdx = currentDesc.indexOf(
+                    WORK_SLOTS_CALENDAR_IDENTIFIER,
+                  );
+                  beforeBoundary = currentDesc
+                    .substring(0, identifierIdx)
+                    .trim();
+                  const afterIdentifier = currentDesc.substring(identifierIdx);
+                  const oldDataMatch =
+                    afterIdentifier.match(/SLOT_TYPES_JSON:.*$/s);
+                  if (oldDataMatch) {
+                    const oldDataEnd =
+                      identifierIdx +
+                      afterIdentifier.indexOf(oldDataMatch[0]) +
+                      oldDataMatch[0].length;
+                    afterBoundary = currentDesc.substring(oldDataEnd).trim();
+                  }
+                } else {
+                  beforeBoundary = currentDesc.trim();
+                }
+              }
+              const dataSection = `WorkSlots Calendar - ID: ${WORK_SLOTS_CALENDAR_IDENTIFIER}\nSLOT_TYPES_JSON: ${JSON.stringify(slotTypesData)}`;
+              const parts = [];
+              if (beforeBoundary) parts.push(beforeBoundary);
+              parts.push(WORK_SLOTS_DATA_START);
+              parts.push(dataSection);
+              parts.push(WORK_SLOTS_DATA_END);
+              if (afterBoundary) parts.push(afterBoundary);
+              await gapi.client.calendar.calendars.patch({
+                calendarId: calendarId,
+                resource: { description: parts.join("\n\n") },
+              });
+              return true;
+            } catch (err) {
+              console.error("Error saving slot types to calendar:", err);
+              showToast("Error saving slot types. Check console.");
+              return false;
+            }
+          },
+
+          async loadEventColors() {
+            try {
+              const resp = await gapi.client.calendar.colors.get();
+              return resp?.result?.event || null;
+            } catch (err) {
+              console.error("Error loading event colors:", err);
+              return null;
+            }
+          },
+
+          async listEvents(calendarId, timeMin, timeMax) {
+            const response = await gapi.client.calendar.events.list({
+              calendarId: calendarId,
+              timeMin: timeMin,
+              timeMax: timeMax,
+              privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
+              singleEvents: true,
+              orderBy: "startTime",
+            });
+            const events = response.result.items || [];
+            return events
+              .filter(
+                (e) =>
+                  e.extendedProperties?.private?.workSlotsManaged ===
+                  WORK_SLOTS_MANAGED_VALUE,
+              )
+              .map((e) => ({
+                id: e.id,
+                summary: e.summary,
+                startDateTime: e.start?.dateTime || e.start?.date,
+              }));
+          },
+
+          async createEvent(calendarId, eventData) {
+            const newEvent = {
+              summary: eventData.summary,
+              description: eventData.description || "Created via WorkSlots",
+              ...(eventData.colorId
+                ? { colorId: String(eventData.colorId) }
+                : {}),
+              start: {
+                dateTime: eventData.start.dateTime,
+                timeZone: eventData.start.timeZone,
+              },
+              end: {
+                dateTime: eventData.end.dateTime,
+                timeZone: eventData.end.timeZone,
+              },
+              extendedProperties: {
+                private: {
+                  workSlotsManaged: WORK_SLOTS_MANAGED_VALUE,
+                },
+              },
+            };
+            await gapi.client.calendar.events.insert({
+              calendarId: calendarId,
+              resource: newEvent,
+            });
+          },
+
+          async deleteEvent(calendarId, eventId) {
+            await gapi.client.calendar.events.delete({
+              calendarId: calendarId,
+              eventId: eventId,
+            });
+          },
+        };
+      })();
+
+      // ── Outlook Calendar Provider ──
+      const OutlookCalendarProvider = (function () {
+        const OUTLOOK_CLIENT_ID = "5875edef-2be7-4db8-aa2a-21a171949a9e"; // Replace with your Azure AD app client ID
+        const GRAPH_BASE = "https://graph.microsoft.com/v1.0";
+        const WS_PROP_ID =
+          "String {66f5a359-4659-4830-9070-00047773696e} Name WorkSlotsManaged";
+        const WS_SLOTS_PROP_ID =
+          "String {66f5a359-4659-4830-9070-00047773696e} Name WorkSlotsData";
+        const WS_CAL_PROP_ID =
+          "String {66f5a359-4659-4830-9070-00047773696e} Name WorkSlotsCalId";
+
+        let msalInstance = null;
+
+        async function getAccessToken() {
+          const accounts = msalInstance.getAllAccounts();
+          if (accounts.length === 0) throw new Error("No accounts signed in");
+          try {
+            const resp = await msalInstance.acquireTokenSilent({
+              scopes: ["Calendars.ReadWrite"],
+              account: accounts[0],
+            });
+            return resp.accessToken;
+          } catch {
+            const resp = await msalInstance.acquireTokenPopup({
+              scopes: ["Calendars.ReadWrite"],
+            });
+            return resp.accessToken;
+          }
+        }
+
+        async function graphFetch(url, options = {}) {
+          const token = await getAccessToken();
+          const { headers: optHeaders, ...restOptions } = options;
+          const resp = await fetch(`${GRAPH_BASE}${url}`, {
+            ...restOptions,
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              ...(optHeaders || {}),
+            },
+          });
+          if (
+            options.method === "DELETE" &&
+            (resp.status === 204 || resp.status === 200)
+          )
+            return null;
+          if (!resp.ok) {
+            const errorBody = await resp.text();
+            throw new Error(`Graph API error ${resp.status}: ${errorBody}`);
+          }
+          return resp.json();
+        }
+
+        function toLocalDateTimeString(date) {
+          const pad = (n) => String(n).padStart(2, "0");
+          return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+        }
+
+        return {
+          name: "outlook",
+          displayName: "Microsoft Outlook",
+          capabilities: PROVIDER_CAPABILITIES.outlook,
+
+          async init() {
+            msalInstance = new msal.PublicClientApplication({
+              auth: {
+                clientId: OUTLOOK_CLIENT_ID,
+                authority: "https://login.microsoftonline.com/common",
+                redirectUri: window.location.origin,
+              },
+              cache: { cacheLocation: "sessionStorage" },
+            });
+          },
+
+          isAuthenticated() {
+            return msalInstance && msalInstance.getAllAccounts().length > 0;
+          },
+
+          async authenticate() {
+            if (!msalInstance) {
+              throw new Error("Outlook provider not initialized. MSAL library may have failed to load.");
+            }
+            await msalInstance.loginPopup({
+              scopes: ["Calendars.ReadWrite"],
+            });
+          },
+
+          signOut() {
+            if (msalInstance) {
+              msalInstance.logoutPopup();
+            }
+          },
+
+          async findOrCreateWorkSlotsCalendar() {
+            const expand = encodeURIComponent(
+              `singleValueExtendedProperties($filter=id eq '${WS_CAL_PROP_ID}')`,
+            );
+            const calsResp = await graphFetch(
+              `/me/calendars?$expand=${expand}`,
+            );
+            const calendars = calsResp.value || [];
+
+            for (const cal of calendars) {
+              const props = cal.singleValueExtendedProperties || [];
+              const wsProp = props.find((p) => p.id === WS_CAL_PROP_ID);
+              if (wsProp && wsProp.value === WORK_SLOTS_CALENDAR_IDENTIFIER) {
+                showToast("Using WorkSlots calendar");
+                return cal.id;
+              }
+            }
+
+            // Not found — create
+            const newCal = await graphFetch("/me/calendars", {
+              method: "POST",
+              body: JSON.stringify({
+                name: WORK_SLOTS_CALENDAR_NAME,
+                singleValueExtendedProperties: [
+                  { id: WS_CAL_PROP_ID, value: WORK_SLOTS_CALENDAR_IDENTIFIER },
+                  { id: WS_SLOTS_PROP_ID, value: "[]" },
+                ],
+              }),
+            });
+            showToast("Created WorkSlots calendar");
+            return newCal.id;
+          },
+
+          async loadSlotTypesFromCalendar(calendarId) {
+            if (!calendarId) return null;
+            try {
+              const expand = encodeURIComponent(
+                `singleValueExtendedProperties($filter=id eq '${WS_SLOTS_PROP_ID}')`,
+              );
+              const cal = await graphFetch(
+                `/me/calendars/${calendarId}?$expand=${expand}`,
+              );
+              const props = cal.singleValueExtendedProperties || [];
+              const dataProp = props.find((p) => p.id === WS_SLOTS_PROP_ID);
+              if (dataProp) {
+                try {
+                  const parsed = JSON.parse(dataProp.value);
+                  return Array.isArray(parsed) ? parsed : null;
+                } catch {
+                  return null;
+                }
+              }
+              return null;
+            } catch (err) {
+              console.error("Error loading slot types from Outlook:", err);
+              return null;
+            }
+          },
+
+          async saveSlotTypesToCalendar(calendarId, slotTypesData) {
+            if (!calendarId) return false;
+            try {
+              await graphFetch(`/me/calendars/${calendarId}`, {
+                method: "PATCH",
+                body: JSON.stringify({
+                  singleValueExtendedProperties: [
+                    {
+                      id: WS_SLOTS_PROP_ID,
+                      value: JSON.stringify(slotTypesData),
+                    },
+                  ],
+                }),
+              });
+              return true;
+            } catch (err) {
+              console.error("Error saving slot types to Outlook:", err);
+              showToast("Error saving slot types. Check console.");
+              return false;
+            }
+          },
+
+          async loadEventColors() {
+            return null; // Outlook doesn't support event color IDs like Google
+          },
+
+          async listEvents(calendarId, timeMin, timeMax) {
+            const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const start = encodeURIComponent(timeMin);
+            const end = encodeURIComponent(timeMax);
+            const expand = encodeURIComponent(
+              `singleValueExtendedProperties($filter=id eq '${WS_PROP_ID}')`,
+            );
+            const resp = await graphFetch(
+              `/me/calendars/${calendarId}/calendarView?startDateTime=${start}&endDateTime=${end}&$expand=${expand}&$top=500`,
+              {
+                headers: {
+                  Prefer: `outlook.timezone="${userTz}"`,
+                },
+              },
+            );
+            const events = resp.value || [];
+            return events
+              .filter((e) => {
+                const props = e.singleValueExtendedProperties || [];
+                return props.some(
+                  (p) =>
+                    p.id === WS_PROP_ID && p.value === WORK_SLOTS_MANAGED_VALUE,
+                );
+              })
+              .map((e) => ({
+                id: e.id,
+                summary: e.subject,
+                startDateTime: e.start?.dateTime,
+              }));
+          },
+
+          async createEvent(calendarId, eventData) {
+            const startLocal = new Date(eventData.start.dateTime);
+            const endLocal = new Date(eventData.end.dateTime);
+            await graphFetch(`/me/calendars/${calendarId}/events`, {
+              method: "POST",
+              body: JSON.stringify({
+                subject: eventData.summary,
+                body: {
+                  contentType: "text",
+                  content: eventData.description || "Created via WorkSlots",
+                },
+                start: {
+                  dateTime: toLocalDateTimeString(startLocal),
+                  timeZone: eventData.start.timeZone,
+                },
+                end: {
+                  dateTime: toLocalDateTimeString(endLocal),
+                  timeZone: eventData.end.timeZone,
+                },
+                singleValueExtendedProperties: [
+                  { id: WS_PROP_ID, value: WORK_SLOTS_MANAGED_VALUE },
+                ],
+              }),
+            });
+          },
+
+          async deleteEvent(calendarId, eventId) {
+            await graphFetch(`/me/events/${eventId}`, {
+              method: "DELETE",
+            });
+          },
+        };
+      })();
+
+      // ── Global State ──
+      let activeProvider = null;
       let currentYear = new Date().getFullYear();
       let currentMonth = new Date().getMonth();
       let selectedDate = null;
       let selectedCalendarId = null;
-      let userCalendars = [];
-
       let slotTypes = [];
+      let schedule = {};
+      let eventColors = null; // { [colorId]: { background, foreground } }
 
-      let schedule = {}; // No longer stored in localStorage - loaded from Google Calendar
-      let googleEventColors = null; // { [colorId]: { background, foreground } }
-
+      // ── Color Helpers ──
       function getSlotColorHex(slot) {
-        if (
-          slot?.colorId &&
-          googleEventColors?.[String(slot.colorId)]?.background
-        ) {
-          return googleEventColors[String(slot.colorId)].background;
+        if (slot?.colorId && eventColors?.[String(slot.colorId)]?.background) {
+          return eventColors[String(slot.colorId)].background;
         }
         return slot?.color || "#6366f1";
       }
 
       function toggleSlotColorPicker(slotId) {
-        if (!googleEventColors) return;
+        if (!eventColors) return;
         closeAllSlotColorPickers(slotId);
         const menu = document.getElementById(`slotColorMenu_${slotId}`);
         if (!menu) return;
@@ -602,16 +1171,16 @@
       }
 
       function renderColorSwatches(slotId, selectedColorId) {
-        if (!googleEventColors) {
+        if (!eventColors) {
           return "";
         }
 
-        const ids = Object.keys(googleEventColors).sort(
+        const ids = Object.keys(eventColors).sort(
           (a, b) => Number(a) - Number(b),
         );
         return ids
           .map((id) => {
-            const color = googleEventColors[id]?.background || "#000000";
+            const color = eventColors[id]?.background || "#000000";
             const isSelected = String(selectedColorId) === String(id);
             return `
               <button
@@ -630,189 +1199,7 @@
           .join("");
       }
 
-      async function findOrCreateWorkSlotsCalendar() {
-        if (!gapi.client.getToken()) {
-          throw new Error("Not authenticated");
-        }
-
-        try {
-          // List all calendars
-          const response = await gapi.client.calendar.calendarList.list();
-          const calendars = response.result.items || [];
-
-          // Look for calendar with identifier in description (check all calendars)
-          for (const cal of calendars) {
-            try {
-              // Fetch full calendar details to check description
-              const fullCal = await gapi.client.calendar.calendars.get({
-                calendarId: cal.id,
-              });
-
-              // Check if description contains our identifier
-              const description = fullCal.result.description || "";
-              if (description.includes(WORK_SLOTS_CALENDAR_IDENTIFIER)) {
-                selectedCalendarId = cal.id;
-                showToast("Using WorkSlots calendar");
-                return cal.id;
-              }
-            } catch (err) {
-              console.warn(`Could not fetch calendar ${cal.id} details:`, err);
-              continue;
-            }
-          }
-
-          // Not found - create a new calendar with identifier and boundary markers in description
-          const initialDescription = `${WORK_SLOTS_DATA_START}\nWorkSlots Calendar - ID: ${WORK_SLOTS_CALENDAR_IDENTIFIER}\nSLOT_TYPES_JSON: []\n${WORK_SLOTS_DATA_END}`;
-          const newCalendar = await gapi.client.calendar.calendars.insert({
-            resource: {
-              summary: WORK_SLOTS_CALENDAR_NAME,
-              description: initialDescription,
-            },
-          });
-
-          selectedCalendarId = newCalendar.result.id;
-          showToast("Created WorkSlots calendar");
-          return newCalendar.result.id;
-        } catch (err) {
-          console.error("Error finding/creating WorkSlots calendar:", err);
-          throw err;
-        }
-      }
-
-      async function loadSlotTypesFromCalendar(calendarId) {
-        if (!calendarId) return null;
-
-        try {
-          const response = await gapi.client.calendar.calendars.get({
-            calendarId: calendarId,
-          });
-
-          // Look for slot types within the boundary markers
-          const description = response.result.description || "";
-          const startIdx = description.indexOf(WORK_SLOTS_DATA_START);
-          const endIdx = description.indexOf(WORK_SLOTS_DATA_END);
-
-          if (startIdx === -1 || endIdx === -1 || startIdx >= endIdx) {
-            return null;
-          }
-
-          // Extract content between boundaries
-          const dataSection = description
-            .substring(startIdx + WORK_SLOTS_DATA_START.length, endIdx)
-            .trim();
-          const slotTypesMatch = dataSection.match(
-            /SLOT_TYPES_JSON:\s*(\[.*\]|\{.*\})/s,
-          );
-
-          if (slotTypesMatch) {
-            try {
-              const parsed = JSON.parse(slotTypesMatch[1]);
-              return Array.isArray(parsed) ? parsed : null;
-            } catch (parseErr) {
-              console.error(
-                "Error parsing slot types from description:",
-                parseErr,
-              );
-              return null;
-            }
-          }
-
-          return null;
-        } catch (err) {
-          console.error("Error loading slot types from calendar:", err);
-          return null;
-        }
-      }
-
-      async function saveSlotTypesToCalendar(calendarId, slotTypes) {
-        if (!calendarId) {
-          console.warn("No calendar ID provided for saving slot types");
-          return false;
-        }
-
-        try {
-          // Get current calendar to preserve user content outside boundaries
-          const currentCal = await gapi.client.calendar.calendars.get({
-            calendarId: calendarId,
-          });
-
-          const currentDesc = currentCal.result.description || "";
-
-          // Extract user content before and after the boundary
-          const startIdx = currentDesc.indexOf(WORK_SLOTS_DATA_START);
-          const endIdx = currentDesc.indexOf(WORK_SLOTS_DATA_END);
-
-          let beforeBoundary = "";
-          let afterBoundary = "";
-
-          if (startIdx !== -1 && endIdx !== -1 && startIdx < endIdx) {
-            // Boundaries exist - extract user content
-            beforeBoundary = currentDesc.substring(0, startIdx).trim();
-            afterBoundary = currentDesc
-              .substring(endIdx + WORK_SLOTS_DATA_END.length)
-              .trim();
-          } else {
-            // No boundaries yet - check if there's existing content
-            // If description contains the identifier, use everything before it as user content
-            if (currentDesc.includes(WORK_SLOTS_CALENDAR_IDENTIFIER)) {
-              const identifierIdx = currentDesc.indexOf(
-                WORK_SLOTS_CALENDAR_IDENTIFIER,
-              );
-              beforeBoundary = currentDesc.substring(0, identifierIdx).trim();
-              // Remove any old format data after identifier
-              const afterIdentifier = currentDesc.substring(identifierIdx);
-              const oldDataMatch =
-                afterIdentifier.match(/SLOT_TYPES_JSON:.*$/s);
-              if (oldDataMatch) {
-                const oldDataEnd =
-                  identifierIdx +
-                  afterIdentifier.indexOf(oldDataMatch[0]) +
-                  oldDataMatch[0].length;
-                afterBoundary = currentDesc.substring(oldDataEnd).trim();
-              }
-            } else {
-              // No identifier - preserve all existing content as user content
-              beforeBoundary = currentDesc.trim();
-            }
-          }
-
-          // Build new description with boundaries
-          // Identifier is now inside the boundary section
-          const dataSection = `WorkSlots Calendar - ID: ${WORK_SLOTS_CALENDAR_IDENTIFIER}\nSLOT_TYPES_JSON: ${JSON.stringify(slotTypes)}`;
-
-          const parts = [];
-
-          // Add user content before boundary
-          if (beforeBoundary) {
-            parts.push(beforeBoundary);
-          }
-
-          // Add app-managed section with boundaries (identifier is inside)
-          parts.push(WORK_SLOTS_DATA_START);
-          parts.push(dataSection);
-          parts.push(WORK_SLOTS_DATA_END);
-
-          // Add user content after boundary
-          if (afterBoundary) {
-            parts.push(afterBoundary);
-          }
-
-          const newDescription = parts.join("\n\n");
-
-          await gapi.client.calendar.calendars.patch({
-            calendarId: calendarId,
-            resource: {
-              description: newDescription,
-            },
-          });
-          return true;
-        } catch (err) {
-          console.error("Error saving slot types to calendar:", err);
-          showToast("Error saving slot types. Check console.");
-          return false;
-        }
-      }
-
+      // ── Calendar Rendering ──
       function renderCalendar() {
         const grid = document.getElementById("calendarGrid");
         const display = document.getElementById("currentMonthDisplay");
@@ -884,12 +1271,13 @@
           currentYear--;
         }
         renderCalendar();
-        // Load slots from Google Calendar when month changes (if authenticated)
-        if (gapi.client.getToken() && selectedCalendarId) {
+        // Load slots from calendar when month changes (if authenticated)
+        if (activeProvider?.isAuthenticated() && selectedCalendarId) {
           loadSlotsFromCalendar();
         }
       }
 
+      // ── Slot Type Rendering & Management ──
       function renderSlotTypes() {
         const list = document.getElementById("slotTypeList");
         list.innerHTML = "";
@@ -897,18 +1285,9 @@
           const div = document.createElement("div");
           div.className =
             "p-3 bg-neutral-50 rounded-lg border border-neutral-100 space-y-2";
-          div.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <input type="text" value="${slot.name}" onchange="updateSlot(${slot.id}, 'name', this.value)" class="bg-transparent font-bold text-sm w-24 outline-none focus:text-primary-600">
-                        <button onclick="removeSlotType(${slot.id})" class="text-neutral-400 hover:text-danger-hover">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                        </button>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs text-neutral-500">
-                        <input type="time" value="${slot.start}" onchange="updateSlot(${slot.id}, 'start', this.value)" class="bg-surface border rounded px-1">
-                        <span>to</span>
-                        <input type="time" value="${slot.end}" onchange="updateSlot(${slot.id}, 'end', this.value)" class="bg-surface border rounded px-1">
-                    </div>
+
+          const colorPickerHtml = activeProvider?.capabilities?.eventColorPicker
+            ? `
                     <div class="flex items-center gap-2 text-xs text-neutral-500">
                         <span class="font-medium">Color</span>
                         <div class="relative inline-block color-picker-wrapper" data-color-picker="true">
@@ -917,10 +1296,10 @@
                             class="w-6 h-6 rounded-full border border-neutral-200 shadow-sm hover:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-300 disabled:opacity-50 disabled:cursor-not-allowed"
                             style="background-color: ${getSlotColorHex(slot)}"
                             onclick="toggleSlotColorPicker(${slot.id})"
-                            ${googleEventColors ? "" : "disabled"}
+                            ${eventColors ? "" : "disabled"}
                           ></button>
                           ${
-                            !googleEventColors
+                            !eventColors
                               ? `
                           <div class="color-tooltip">
                             Please log in to select colors
@@ -938,25 +1317,36 @@
                             </div>
                           </div>
                         </div>
+                    </div>`
+            : "";
+
+          div.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <input type="text" value="${slot.name}" onchange="updateSlot(${slot.id}, 'name', this.value)" class="bg-transparent font-bold text-sm w-24 outline-none focus:text-primary-600">
+                        <button onclick="removeSlotType(${slot.id})" class="text-neutral-400 hover:text-danger-hover">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </button>
                     </div>
+                    <div class="flex items-center gap-2 text-xs text-neutral-500">
+                        <input type="time" value="${slot.start}" onchange="updateSlot(${slot.id}, 'start', this.value)" class="bg-surface border rounded px-1">
+                        <span>to</span>
+                        <input type="time" value="${slot.end}" onchange="updateSlot(${slot.id}, 'end', this.value)" class="bg-surface border rounded px-1">
+                    </div>
+                    ${colorPickerHtml}
                 `;
           list.appendChild(div);
         });
       }
 
       async function addNewSlotType() {
-        // Check if user is logged in
-        if (!gapi.client.getToken()) {
+        if (!activeProvider?.isAuthenticated()) {
           showToast("Please log in to create slot types");
           return;
         }
-
-        // Check if calendar is available
         if (!selectedCalendarId) {
           showToast("Calendar not ready. Please try again.");
           return;
         }
-
         const id = Date.now();
         slotTypes.push({
           id,
@@ -967,8 +1357,11 @@
           color: "#6366f1",
         });
         renderSlotTypes();
-        if (selectedCalendarId) {
-          await saveSlotTypesToCalendar(selectedCalendarId, slotTypes);
+        if (selectedCalendarId && activeProvider) {
+          await activeProvider.saveSlotTypesToCalendar(
+            selectedCalendarId,
+            slotTypes,
+          );
         }
       }
 
@@ -976,18 +1369,17 @@
         const slot = slotTypes.find((s) => s.id === id);
         if (slot) {
           slot[field] = value;
-          if (
-            field === "colorId" &&
-            googleEventColors?.[String(value)]?.background
-          ) {
-            // Keep legacy color updated for UI fallbacks.
-            slot.color = googleEventColors[String(value)].background;
+          if (field === "colorId" && eventColors?.[String(value)]?.background) {
+            slot.color = eventColors[String(value)].background;
           }
         }
         renderSlotTypes();
         renderCalendar();
-        if (selectedCalendarId) {
-          await saveSlotTypesToCalendar(selectedCalendarId, slotTypes);
+        if (selectedCalendarId && activeProvider) {
+          await activeProvider.saveSlotTypesToCalendar(
+            selectedCalendarId,
+            slotTypes,
+          );
         }
       }
 
@@ -998,24 +1390,24 @@
         });
         renderSlotTypes();
         renderCalendar();
-        if (selectedCalendarId) {
-          await saveSlotTypesToCalendar(selectedCalendarId, slotTypes);
+        if (selectedCalendarId && activeProvider) {
+          await activeProvider.saveSlotTypesToCalendar(
+            selectedCalendarId,
+            slotTypes,
+          );
         }
       }
 
+      // ── Assign Modal ──
       function openAssignModal(dateKey, dayNum) {
-        // Check if user is authenticated first
-        if (!gapi.client.getToken()) {
+        if (!activeProvider?.isAuthenticated()) {
           showToast("Please log in first");
           return;
         }
-
-        // Check if calendar is available
         if (!selectedCalendarId) {
           showToast("Calendar not ready. Please try again.");
           return;
         }
-
         selectedDate = dateKey;
         document.getElementById("modalTitle").innerText =
           `Assign Slot: ${dayNum} ${document.getElementById("currentMonthDisplay").innerText}`;
@@ -1040,190 +1432,237 @@
       function assignSlot(slotId) {
         if (slotId === null) delete schedule[selectedDate];
         else schedule[selectedDate] = slotId;
-        // No longer storing in localStorage - schedule is only in memory until synced
         renderCalendar();
         closeModal();
       }
 
-      function gapiLoaded() {
-        gapi.load("client", initializeGapiClient);
-      }
-
-      async function initializeGapiClient() {
-        await gapi.client.init({
-          apiKey: API_KEY,
-          discoveryDocs: [DISCOVERY_DOC],
-        });
-        gapiInited = true;
-        checkBeforeStart();
-      }
-
-      function gisLoaded() {
-        tokenClient = google.accounts.oauth2.initTokenClient({
-          client_id: CLIENT_ID,
-          scope: SCOPES,
-          callback: "",
-        });
-        gisInited = true;
-        checkBeforeStart();
-      }
-
-      function checkBeforeStart() {
-        if (gapiInited && gisInited)
-          document.getElementById("syncBtn").disabled = false;
-      }
-
-      function handleAuthClick() {
-        tokenClient.callback = async (resp) => {
-          if (resp.error !== undefined) throw resp;
-          document.getElementById("authBtn").classList.add("hidden");
-          document.getElementById("signOutBtn").classList.remove("hidden");
-          showToast("Connected to Google!");
-
-          try {
-            // Find or create WorkSlots calendar
-            await findOrCreateWorkSlotsCalendar();
-
-            // Load slot types from calendar
-            const loadedSlotTypes =
-              await loadSlotTypesFromCalendar(selectedCalendarId);
-            if (loadedSlotTypes && loadedSlotTypes.length > 0) {
-              slotTypes = loadedSlotTypes;
-              renderSlotTypes();
-            }
-
-            // Load event colors for color picker
-            await loadEventColors();
-
-            // Enable UI
-            document.getElementById("refreshBtn").classList.remove("hidden");
-            document.getElementById("refreshBtn").disabled = false;
-            document.getElementById("syncBtn").disabled = false;
-            document.getElementById("addSlotTypeBtn").disabled = false;
-
-            // Load existing slots from calendar
-            await loadSlotsFromCalendar();
-          } catch (err) {
-            console.error("Error during authentication setup:", err);
-            showToast("Error setting up calendar. Check console.");
-          }
+      // ── Auth Flow ──
+      async function loginWith(providerName) {
+        const providers = {
+          google: GoogleCalendarProvider,
+          outlook: OutlookCalendarProvider,
         };
-        if (gapi.client.getToken() === null)
-          tokenClient.requestAccessToken({ prompt: "consent" });
-        else tokenClient.requestAccessToken({ prompt: "" });
-      }
+        const provider = providers[providerName];
+        if (!provider) return;
 
-      function handleSignoutClick() {
-        const token = gapi.client.getToken();
-        if (token !== null) {
-          google.accounts.oauth2.revoke(token.access_token);
-          gapi.client.setToken("");
-          document.getElementById("authBtn").classList.remove("hidden");
-          document.getElementById("signOutBtn").classList.add("hidden");
-          document.getElementById("refreshBtn").classList.add("hidden");
-          document.getElementById("syncBtn").disabled = true;
-          document.getElementById("addSlotTypeBtn").disabled = true;
-          selectedCalendarId = null;
-          schedule = {}; // Clear schedule on sign out
-          slotTypes = []; // Clear slot types on sign out
-          googleEventColors = null;
-          renderCalendar();
+        try {
+          activeProvider = provider;
+          await provider.authenticate();
+
+          // Hide both auth buttons, show sign out
+          document.getElementById("authGoogleBtn").classList.add("hidden");
+          document.getElementById("authOutlookBtn").classList.add("hidden");
+          document.getElementById("signOutBtn").classList.remove("hidden");
+          showToast(`Connected to ${provider.displayName}!`);
+
+          // Find or create WorkSlots calendar
+          selectedCalendarId = await provider.findOrCreateWorkSlotsCalendar();
+
+          // Load slot types from calendar
+          const loadedSlotTypes =
+            await provider.loadSlotTypesFromCalendar(selectedCalendarId);
+          if (loadedSlotTypes && loadedSlotTypes.length > 0) {
+            slotTypes = loadedSlotTypes;
+          }
+
+          // Load event colors
+          eventColors = await provider.loadEventColors();
           renderSlotTypes();
-          showToast("Signed out.");
+
+          // Enable UI
+          document.getElementById("refreshBtn").classList.remove("hidden");
+          document.getElementById("refreshBtn").disabled = false;
+          document.getElementById("syncBtn").disabled = false;
+          document.getElementById("addSlotTypeBtn").disabled = false;
+
+          // Load existing slots from calendar
+          await loadSlotsFromCalendar();
+        } catch (err) {
+          console.error("Error during authentication:", err);
+          activeProvider = null;
+          showToast("Error connecting. Check console.");
         }
       }
 
-      // ── Dev mode: simulate login with mock data ──
-      function handleDevLogin() {
-        // Set a fake token so all gapi.client.getToken() checks pass
-        gapi.client.setToken({ access_token: 'dev-fake-token' });
+      function handleSignOut() {
+        if (!activeProvider) return;
+        activeProvider.signOut();
+        activeProvider = null;
 
-        // Fake calendar ID
-        selectedCalendarId = 'dev-calendar';
+        // Show both auth buttons, hide sign out
+        document.getElementById("authGoogleBtn").classList.remove("hidden");
+        document.getElementById("authOutlookBtn").classList.remove("hidden");
+        document.getElementById("signOutBtn").classList.add("hidden");
+        document.getElementById("refreshBtn").classList.add("hidden");
+        document.getElementById("syncBtn").disabled = true;
+        document.getElementById("addSlotTypeBtn").disabled = true;
 
-        // Mock Google event colors (mirrors Google Calendar's 11 event colors)
-        googleEventColors = {
-          "1":  { background: "#a4bdfc", foreground: "#1d1d1d" },
-          "2":  { background: "#7ae7bf", foreground: "#1d1d1d" },
-          "3":  { background: "#dbadff", foreground: "#1d1d1d" },
-          "4":  { background: "#ff887c", foreground: "#1d1d1d" },
-          "5":  { background: "#fbd75b", foreground: "#1d1d1d" },
-          "6":  { background: "#ffb878", foreground: "#1d1d1d" },
-          "7":  { background: "#46d6db", foreground: "#1d1d1d" },
-          "8":  { background: "#e1e1e1", foreground: "#1d1d1d" },
-          "9":  { background: "#5484ed", foreground: "#1d1d1d" },
-          "10": { background: "#51b749", foreground: "#1d1d1d" },
-          "11": { background: "#dc2127", foreground: "#1d1d1d" },
+        selectedCalendarId = null;
+        schedule = {};
+        slotTypes = [];
+        eventColors = null;
+        renderCalendar();
+        renderSlotTypes();
+        showToast("Signed out.");
+      }
+
+      async function restoreSession(provider) {
+        try {
+          activeProvider = provider;
+
+          document.getElementById("authGoogleBtn").classList.add("hidden");
+          document.getElementById("authOutlookBtn").classList.add("hidden");
+          document.getElementById("signOutBtn").classList.remove("hidden");
+
+          selectedCalendarId = await provider.findOrCreateWorkSlotsCalendar();
+
+          const loadedSlotTypes =
+            await provider.loadSlotTypesFromCalendar(selectedCalendarId);
+          if (loadedSlotTypes && loadedSlotTypes.length > 0) {
+            slotTypes = loadedSlotTypes;
+          }
+
+          eventColors = await provider.loadEventColors();
+          renderSlotTypes();
+
+          document.getElementById("refreshBtn").classList.remove("hidden");
+          document.getElementById("refreshBtn").disabled = false;
+          document.getElementById("syncBtn").disabled = false;
+          document.getElementById("addSlotTypeBtn").disabled = false;
+
+          await loadSlotsFromCalendar();
+        } catch (err) {
+          console.error("Error restoring session:", err);
+          activeProvider = null;
+        }
+      }
+
+      // ── Dev Mode Login ──
+      function handleDevLogin(providerName) {
+        const mockEventColorsMap =
+          providerName === "google"
+            ? {
+                1: { background: "#a4bdfc", foreground: "#1d1d1d" },
+                2: { background: "#7ae7bf", foreground: "#1d1d1d" },
+                3: { background: "#dbadff", foreground: "#1d1d1d" },
+                4: { background: "#ff887c", foreground: "#1d1d1d" },
+                5: { background: "#fbd75b", foreground: "#1d1d1d" },
+                6: { background: "#ffb878", foreground: "#1d1d1d" },
+                7: { background: "#46d6db", foreground: "#1d1d1d" },
+                8: { background: "#e1e1e1", foreground: "#1d1d1d" },
+                9: { background: "#5484ed", foreground: "#1d1d1d" },
+                10: { background: "#51b749", foreground: "#1d1d1d" },
+                11: { background: "#dc2127", foreground: "#1d1d1d" },
+              }
+            : null;
+
+        const caps = PROVIDER_CAPABILITIES[providerName] || {};
+
+        activeProvider = {
+          name: providerName,
+          displayName:
+            providerName === "google" ? "Google Calendar" : "Microsoft Outlook",
+          capabilities: caps,
+          async init() {},
+          isAuthenticated() {
+            return true;
+          },
+          async authenticate() {},
+          signOut() {},
+          async findOrCreateWorkSlotsCalendar() {
+            return "dev-calendar";
+          },
+          async loadSlotTypesFromCalendar() {
+            return null;
+          },
+          async saveSlotTypesToCalendar() {
+            return true;
+          },
+          async loadEventColors() {
+            return mockEventColorsMap;
+          },
+          async listEvents() {
+            return [];
+          },
+          async createEvent() {},
+          async deleteEvent() {},
         };
+
+        selectedCalendarId = "dev-calendar";
+        eventColors = mockEventColorsMap;
 
         // Mock slot types
         slotTypes = [
-          { id: 1, name: "Deep Work",  start: "09:00", end: "12:00", colorId: "9" },
-          { id: 2, name: "Meetings",   start: "13:00", end: "15:00", colorId: "4" },
-          { id: 3, name: "Admin",      start: "15:30", end: "17:00", colorId: "5" },
+          {
+            id: 1,
+            name: "Deep Work",
+            start: "09:00",
+            end: "12:00",
+            colorId: "9",
+          },
+          {
+            id: 2,
+            name: "Meetings",
+            start: "13:00",
+            end: "15:00",
+            colorId: "4",
+          },
+          {
+            id: 3,
+            name: "Admin",
+            start: "15:30",
+            end: "17:00",
+            colorId: "5",
+          },
         ];
 
-        // Populate a few sample schedule entries for the current month
+        // Populate sample schedule entries for the current month
         schedule = {};
-        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const daysInMonth = new Date(
+          currentYear,
+          currentMonth + 1,
+          0,
+        ).getDate();
         for (let d = 1; d <= daysInMonth; d++) {
           const dayOfWeek = new Date(currentYear, currentMonth, d).getDay();
-          // Skip weekends
           if (dayOfWeek === 0 || dayOfWeek === 6) continue;
           const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-          // Rotate through slot types for variety
-          if (d % 3 === 1) schedule[dateKey] = 1;      // Deep Work
-          else if (d % 3 === 2) schedule[dateKey] = 2;  // Meetings
-          else schedule[dateKey] = 3;                    // Admin
+          if (d % 3 === 1) schedule[dateKey] = 1;
+          else if (d % 3 === 2) schedule[dateKey] = 2;
+          else schedule[dateKey] = 3;
         }
 
         // Toggle UI to authenticated state
-        document.getElementById("authBtn").classList.add("hidden");
+        document.getElementById("authGoogleBtn").classList.add("hidden");
+        document.getElementById("authOutlookBtn").classList.add("hidden");
         document.getElementById("signOutBtn").classList.remove("hidden");
         document.getElementById("refreshBtn").classList.remove("hidden");
         document.getElementById("refreshBtn").disabled = false;
         document.getElementById("syncBtn").disabled = false;
         document.getElementById("addSlotTypeBtn").disabled = false;
 
-        // Re-render
         renderSlotTypes();
         renderCalendar();
-        showToast("Dev mode: logged in with mock data");
+        showToast(
+          `Dev mode: logged in as ${providerName === "google" ? "Google" : "Outlook"} with mock data`,
+        );
       }
 
-      async function loadEventColors() {
-        if (!gapi.client.getToken()) return;
-        try {
-          const resp = await gapi.client.calendar.colors.get();
-          googleEventColors = resp?.result?.event || null;
-          renderSlotTypes();
-          renderCalendar();
-        } catch (err) {
-          console.error("Error loading event colors:", err);
-          googleEventColors = null;
-          renderSlotTypes();
-        }
-      }
-
+      // ── App-level Calendar Operations ──
       async function loadSlotsFromCalendar() {
-        if (!gapi.client.getToken()) {
+        if (!activeProvider?.isAuthenticated()) {
           showToast("Please log in first");
           return;
         }
-
         if (!selectedCalendarId) {
           showToast("Please select a calendar first");
           return;
         }
 
-        showToast("Loading slots from Google Calendar...");
+        showToast(`Loading slots from ${activeProvider.displayName}...`);
 
         try {
-          // Calculate the date range for the current month
-          const firstDay = new Date(currentYear, currentMonth, 1);
           const lastDay = new Date(currentYear, currentMonth + 1, 0);
-
-          // Set timeMin to start of first day and timeMax to end of last day
           const timeMin = new Date(
             currentYear,
             currentMonth,
@@ -1241,17 +1680,11 @@
             59,
           ).toISOString();
 
-          // Fetch all events for the current month
-          const response = await gapi.client.calendar.events.list({
-            calendarId: selectedCalendarId,
-            timeMin: timeMin,
-            timeMax: timeMax,
-            privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
-            singleEvents: true,
-            orderBy: "startTime",
-          });
-
-          const events = response.result.items || [];
+          const events = await activeProvider.listEvents(
+            selectedCalendarId,
+            timeMin,
+            timeMax,
+          );
 
           // Clear current month's schedule
           const monthPrefix = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}`;
@@ -1263,18 +1696,8 @@
 
           // Process each event and match to slot types
           for (const event of events) {
-            // Verify it's a WorkSlots event (ONLY this flag)
-            const isWorkSlotsEvent =
-              event.extendedProperties?.private?.workSlotsManaged ===
-              WORK_SLOTS_MANAGED_VALUE;
-            if (!isWorkSlotsEvent || !event.summary) {
-              continue;
-            }
-
-            // Summary is the slot name
+            if (!event.summary) continue;
             const slotName = event.summary.trim();
-
-            // Find matching slot type by name
             const slot = slotTypes.find((s) => s.name === slotName);
             if (!slot) {
               console.warn(
@@ -1282,22 +1705,17 @@
               );
               continue;
             }
-
-            // Extract date from event start time
-            const startDateTime = event.start.dateTime || event.start.date;
+            const startDateTime = event.startDateTime;
             if (!startDateTime) continue;
-
             const eventDate = new Date(startDateTime);
             const dateKey = `${eventDate.getFullYear()}-${String(eventDate.getMonth() + 1).padStart(2, "0")}-${String(eventDate.getDate()).padStart(2, "0")}`;
-
-            // Only add if it's in the current month
             if (dateKey.startsWith(monthPrefix)) {
               schedule[dateKey] = slot.id;
             }
           }
 
           renderCalendar();
-          showToast("Slots loaded from Google Calendar!");
+          showToast(`Slots loaded from ${activeProvider.displayName}!`);
         } catch (err) {
           console.error("Error loading slots:", err);
           showToast("Error loading slots. Check console.");
@@ -1305,6 +1723,9 @@
       }
 
       function openSyncConfirmModal() {
+        const providerName = activeProvider?.displayName || "your calendar";
+        document.getElementById("syncConfirmText").innerText =
+          `Are you sure you want to sync the current month to ${providerName}? This will update existing events and create new ones as needed.`;
         document.getElementById("syncConfirmModal").classList.remove("hidden");
       }
 
@@ -1318,17 +1739,16 @@
       }
 
       async function syncToCalendar() {
-        if (!gapi.client.getToken()) {
-          handleAuthClick();
+        if (!activeProvider?.isAuthenticated()) {
+          showToast("Please log in first");
           return;
         }
-
         if (!selectedCalendarId) {
           showToast("Calendar not ready. Please try again.");
           return;
         }
 
-        showToast(`Syncing slots...`);
+        showToast("Syncing slots...");
 
         try {
           const monthPrefix = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}`;
@@ -1338,7 +1758,6 @@
             0,
           ).getDate();
 
-          // Fetch all WorkSlots-managed events in the month (single API call)
           const monthTimeMin = new Date(
             currentYear,
             currentMonth,
@@ -1356,54 +1775,36 @@
             59,
           ).toISOString();
 
-          const monthEventsResp = await gapi.client.calendar.events.list({
-            calendarId: selectedCalendarId,
-            timeMin: monthTimeMin,
-            timeMax: monthTimeMax,
-            privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
-            singleEvents: true,
-            orderBy: "startTime",
-          });
-
-          const monthEvents = monthEventsResp.result.items || [];
+          // Fetch all WorkSlots-managed events in the month
+          const monthEvents = await activeProvider.listEvents(
+            selectedCalendarId,
+            monthTimeMin,
+            monthTimeMax,
+          );
 
           // Group managed events by day (YYYY-MM-DD)
           const existingByDateKey = {};
           for (const event of monthEvents) {
-            const isWorkSlotsEvent =
-              event.extendedProperties?.private?.workSlotsManaged ===
-              WORK_SLOTS_MANAGED_VALUE;
-            if (!isWorkSlotsEvent) continue;
-
-            const startDateTime = event.start?.dateTime || event.start?.date;
+            const startDateTime = event.startDateTime;
             if (!startDateTime) continue;
-
             const eventDate = new Date(startDateTime);
             const dateKey = `${eventDate.getFullYear()}-${String(eventDate.getMonth() + 1).padStart(2, "0")}-${String(eventDate.getDate()).padStart(2, "0")}`;
             if (!dateKey.startsWith(monthPrefix)) continue;
-
             if (!existingByDateKey[dateKey]) existingByDateKey[dateKey] = [];
             existingByDateKey[dateKey].push(event);
           }
 
-          // For each day of the month:
-          // - If schedule has no slot: delete managed event(s) for that day (Clear behavior)
-          // - If schedule has slot: delete managed event(s) then insert the selected slot
+          // For each day: delete existing managed events, then create new if scheduled
           for (let d = 1; d <= daysInMonth; d++) {
             const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 
             const existing = existingByDateKey[dateStr] || [];
             for (const event of existing) {
-              await gapi.client.calendar.events.delete({
-                calendarId: selectedCalendarId,
-                eventId: event.id,
-              });
+              await activeProvider.deleteEvent(selectedCalendarId, event.id);
             }
 
             const slotId = schedule[dateStr];
-            if (!slotId) {
-              continue;
-            }
+            if (!slotId) continue;
 
             const slot = slotTypes.find((s) => s.id == slotId);
             if (!slot) continue;
@@ -1412,10 +1813,10 @@
             let endDate = new Date(dateStr + "T" + slot.end);
             if (endDate <= startDate) endDate.setDate(endDate.getDate() + 1);
 
-            const newEvent = {
-              summary: `${slot.name}`,
+            const eventData = {
+              summary: slot.name,
               description: "Created via WorkSlots",
-              ...(slot.colorId ? { colorId: String(slot.colorId) } : {}),
+              colorId: slot.colorId ? String(slot.colorId) : null,
               start: {
                 dateTime: startDate.toISOString(),
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -1424,20 +1825,11 @@
                 dateTime: endDate.toISOString(),
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
               },
-              extendedProperties: {
-                private: {
-                  workSlotsManaged: WORK_SLOTS_MANAGED_VALUE,
-                },
-              },
             };
 
-            await gapi.client.calendar.events.insert({
-              calendarId: selectedCalendarId,
-              resource: newEvent,
-            });
+            await activeProvider.createEvent(selectedCalendarId, eventData);
           }
           showToast("Month synced and updated!");
-          // Reload slots from calendar to ensure display is accurate
           await loadSlotsFromCalendar();
         } catch (err) {
           console.error(err);
@@ -1445,6 +1837,7 @@
         }
       }
 
+      // ── Toast ──
       function showToast(msg) {
         const toast = document.getElementById("toast");
         document.getElementById("toastMessage").innerText = msg;
@@ -1455,19 +1848,42 @@
         );
       }
 
-      window.onload = () => {
+      // ── Init ──
+      window.onload = async () => {
         renderSlotTypes();
         renderCalendar();
 
-        // In dev mode, replace the auth button with a "Dev Login" button
-        // and skip Google API initialization entirely.
         if (isDevMode) {
-          const authBtn = document.getElementById("authBtn");
-          authBtn.onclick = handleDevLogin;
-          authBtn.innerHTML = `<span>&#9881; Dev Login</span>`;
+          // In dev mode, replace auth buttons with dev login buttons
+          const googleBtn = document.getElementById("authGoogleBtn");
+          const outlookBtn = document.getElementById("authOutlookBtn");
+          googleBtn.onclick = () => handleDevLogin("google");
+          googleBtn.innerHTML = "<span>&#9881; Dev Google</span>";
+          outlookBtn.onclick = () => handleDevLogin("outlook");
+          outlookBtn.innerHTML = "<span>&#9881; Dev Outlook</span>";
         } else {
-          gapiLoaded();
-          gisLoaded();
+          // Initialize both providers so they're ready when user clicks
+          const initResults = await Promise.allSettled([
+            GoogleCalendarProvider.init(),
+            OutlookCalendarProvider.init(),
+          ]);
+          initResults.forEach((result, i) => {
+            if (result.status === "rejected") {
+              const names = ["Google", "Outlook"];
+              console.warn(`${names[i]} provider init failed:`, result.reason);
+            }
+          });
+
+          // Check if any provider has an existing session (e.g. Outlook via sessionStorage)
+          try {
+            if (GoogleCalendarProvider.isAuthenticated()) {
+              await restoreSession(GoogleCalendarProvider);
+            } else if (OutlookCalendarProvider.isAuthenticated()) {
+              await restoreSession(OutlookCalendarProvider);
+            }
+          } catch (err) {
+            console.error("Error checking existing sessions:", err);
+          }
         }
 
         document.addEventListener("click", (e) => {
@@ -1475,44 +1891,6 @@
             closeAllSlotColorPickers();
           }
         });
-
-        // Check if user was previously authenticated and setup calendar
-        // This will be called after gapi initializes if token exists
-        // Skip in dev mode since there is no real token to restore.
-        if (!isDevMode) {
-          setTimeout(async () => {
-            if (gapi.client && gapi.client.getToken()) {
-              try {
-                // Find or create WorkSlots calendar
-                await findOrCreateWorkSlotsCalendar();
-
-                // Load slot types from calendar
-                const loadedSlotTypes =
-                  await loadSlotTypesFromCalendar(selectedCalendarId);
-                if (loadedSlotTypes && loadedSlotTypes.length > 0) {
-                  slotTypes = loadedSlotTypes;
-                  renderSlotTypes();
-                }
-
-                // Load event colors
-                await loadEventColors();
-
-                // Enable UI
-                document.getElementById("refreshBtn").classList.remove("hidden");
-                document.getElementById("refreshBtn").disabled = false;
-                document.getElementById("syncBtn").disabled = false;
-                document.getElementById("addSlotTypeBtn").disabled = false;
-                document.getElementById("authBtn").classList.add("hidden");
-                document.getElementById("signOutBtn").classList.remove("hidden");
-
-                // Load existing slots from calendar
-                await loadSlotsFromCalendar();
-              } catch (err) {
-                console.error("Error loading on page init:", err);
-              }
-            }
-          }, 1000);
-        }
       };
     </script>
   </body>
