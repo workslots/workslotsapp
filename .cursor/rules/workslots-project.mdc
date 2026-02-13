@@ -1,0 +1,61 @@
+---
+description: WorkSlots project conventions and architecture notes
+alwaysApply: true
+---
+
+# WorkSlots Project
+
+Single-file web app (`index.html`) — no build step, no framework.
+
+## Tech Stack
+
+- Inline HTML + CSS + JavaScript in one file
+- Tailwind CSS via CDN
+- Google Identity Services (GIS) + gapi for Google Calendar API
+- MSAL.js (Microsoft Authentication Library) + Microsoft Graph API for Outlook Calendar
+- Inter font via Google Fonts
+
+## Architecture — Calendar Provider Abstraction
+
+- The app supports two calendar backends: **Google Calendar** and **Microsoft Outlook**
+- All calendar operations go through an `activeProvider` variable that holds a provider object
+- Two provider implementations: `GoogleCalendarProvider` and `OutlookCalendarProvider` (both IIFEs)
+- Each provider implements a common duck-typed interface: `init()`, `isAuthenticated()`, `authenticate()`, `signOut()`, `findOrCreateWorkSlotsCalendar()`, `loadSlotTypesFromCalendar()`, `saveSlotTypesToCalendar()`, `loadEventColors()`, `listEvents()`, `createEvent()`, `deleteEvent()`
+- Provider capabilities are declared in `PROVIDER_CAPABILITIES` — UI features are conditionally rendered based on `activeProvider.capabilities` (e.g. `eventColorPicker` is true for Google, false for Outlook)
+- When adding a new calendar feature, implement it in both providers or gate it behind a capability flag
+- Auth state is checked via `activeProvider?.isAuthenticated()` (replaces the old `gapi.client.getToken()` pattern)
+
+## Authentication
+
+- Google: Uses `google.accounts.oauth2.initTokenClient()` for OAuth flow via GIS + gapi
+- Outlook: Uses `msal.PublicClientApplication` for OAuth popup flow; tokens cached in sessionStorage
+- User picks a provider by clicking one of two login buttons; both are hidden once signed in
+- `loginWith(providerName)` sets `activeProvider` and triggers the OAuth flow
+- `handleSignOut()` calls `activeProvider.signOut()` and resets to logged-out state
+
+## Dev Mode
+
+- Activate with `?dev` query param (e.g. `index.html?dev`)
+- Shows two dev login buttons: "Dev Google" and "Dev Outlook"
+- Clicking either creates a mock provider object with fake token, mock slot types, and schedule data
+- `handleDevLogin(providerName)` builds a mock provider implementing the full interface
+- Google mock includes event colors; Outlook mock has `eventColors = null` (matching real behavior)
+- When modifying auth-gated features, ensure they work with the mock provider (check `activeProvider?.isAuthenticated()`)
+- When adding new provider methods, add matching stubs to the mock provider in `handleDevLogin()`
+
+## Key Global State
+
+- `activeProvider` — the current calendar provider object (or `null` when logged out)
+- `slotTypes` — array of slot definitions `{ id, name, start, end, colorId }`
+- `schedule` — object mapping `"YYYY-MM-DD"` date keys to slot type IDs
+- `selectedCalendarId` — calendar ID from the active provider (or `'dev-calendar'` in dev mode)
+- `eventColors` — map of event color IDs to `{ background, foreground }` (Google only; `null` for Outlook)
+- `currentYear` / `currentMonth` — controls which month the calendar renders
+
+## Conventions
+
+- All UI rendering goes through `renderCalendar()` and `renderSlotTypes()`
+- Toast notifications via `showToast(msg)`
+- Theme toggle persists to localStorage under `'theme'`
+- Dynamic text (sync modal, toasts) uses `activeProvider.displayName` instead of hardcoded provider names
+- Provider-specific logic is encapsulated inside provider IIFEs; app-level functions only call the provider interface
