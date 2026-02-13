@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="40"
+     height="40"
+     viewBox="0 0 40 40">
+
+  <!-- Background -->
+  <rect width="40"
+        height="40"
+        fill="#7b6d5f"
+        rx="5"/>
+
+  <!-- Centered Icon -->
+  <g transform="translate(8 8)">
+    <path fill="none"
+          stroke="#fff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2"/>
+  </g>
+
+</svg>

@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy – WorkSlots</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              neutral: {
+                50: "var(--neutral-50)",
+                100: "var(--neutral-100)",
+                200: "var(--neutral-200)",
+                300: "var(--neutral-300)",
+                400: "var(--neutral-400)",
+                500: "var(--neutral-500)",
+                600: "var(--neutral-600)",
+                700: "var(--neutral-700)",
+                800: "var(--neutral-800)",
+                900: "var(--neutral-900)",
+              },
+              primary: {
+                50: "var(--primary-50)",
+                100: "var(--primary-100)",
+                200: "var(--primary-200)",
+                300: "var(--primary-300)",
+                400: "var(--primary-400)",
+                500: "var(--primary-500)",
+                600: "var(--primary-600)",
+                700: "var(--primary-700)",
+                800: "var(--primary-800)",
+                900: "var(--primary-900)",
+              },
+              surface: {
+                DEFAULT: "var(--surface)",
+                hover: "var(--surface-hover)",
+              },
+              "on-primary": "var(--on-primary)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      :root {
+        --neutral-50: #f8f7f5;
+        --neutral-100: #f0eeeb;
+        --neutral-200: #d8d3cd;
+        --neutral-300: #c0b9b0;
+        --neutral-400: #a09890;
+        --neutral-500: #7a736b;
+        --neutral-600: #5c5650;
+        --neutral-700: #4a433c;
+        --neutral-800: #3a3530;
+        --neutral-900: #33302c;
+        --primary-50: #f0eeeb;
+        --primary-100: #e0dbd5;
+        --primary-200: #c0b5a8;
+        --primary-300: #a89888;
+        --primary-400: #8d7b6a;
+        --primary-500: #7a6b5c;
+        --primary-600: #6e5f50;
+        --primary-700: #5c4f42;
+        --primary-800: #4a3f35;
+        --primary-900: #3a3128;
+        --surface: #ffffff;
+        --surface-hover: #fafaf8;
+        --on-primary: #ffffff;
+      }
+
+      .dark {
+        --neutral-50: #1a1918;
+        --neutral-100: #252320;
+        --neutral-200: #353230;
+        --neutral-300: #454240;
+        --neutral-400: #605c58;
+        --neutral-500: #807a74;
+        --neutral-600: #a09890;
+        --neutral-700: #b8b1a8;
+        --neutral-800: #d8d3cd;
+        --neutral-900: #f0eeeb;
+        --primary-50: #2a2725;
+        --primary-100: #3a3530;
+        --primary-200: #504840;
+        --primary-300: #685e55;
+        --primary-400: #8d7b6a;
+        --primary-500: #a89888;
+        --primary-600: #c0afa0;
+        --primary-700: #d0c2b5;
+        --primary-800: #e0d8d0;
+        --primary-900: #f0ebe5;
+        --surface: #222120;
+        --surface-hover: #2a2826;
+        --on-primary: #1a1918;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+
+      .prose h2 {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      .prose h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .prose p,
+      .prose ul,
+      .prose ol {
+        margin-bottom: 1rem;
+      }
+      .prose ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+      }
+      .prose ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+      }
+      .prose li {
+        margin-bottom: 0.35rem;
+      }
+    </style>
+  </head>
+  <body class="bg-neutral-50 text-neutral-800 min-h-screen">
+    <!-- Header -->
+    <header
+      class="bg-surface border-b border-neutral-200 px-6 py-4 sticky top-0 z-50"
+    >
+      <div class="max-w-3xl mx-auto flex justify-between items-center">
+        <a
+          href="index.html"
+          class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+        >
+          <div class="bg-primary-600 p-2 rounded-lg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-on-primary"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+          </div>
+          <h1 class="text-xl font-bold text-neutral-800">WorkSlots</h1>
+        </a>
+        <button
+          onclick="toggleTheme()"
+          id="themeToggle"
+          class="p-2 rounded-lg border border-neutral-200 hover:bg-neutral-100 transition-all text-neutral-600"
+          title="Toggle dark mode"
+        >
+          <svg
+            id="themeIconSun"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 hidden"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+          <svg
+            id="themeIconMoon"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="max-w-3xl mx-auto px-6 py-12">
+      <div
+        class="bg-surface rounded-xl shadow-sm border border-neutral-200 p-8 md:p-12"
+      >
+        <h1 class="text-3xl font-bold text-neutral-900 mb-2">Privacy Policy</h1>
+        <p class="text-sm text-neutral-400 mb-8">
+          Last updated: February 13, 2026
+        </p>
+
+        <div class="prose text-neutral-700 text-sm leading-relaxed">
+          <p>
+            This Privacy Policy describes how WorkSlots ("we", "us", "our", or
+            the "Application") handles information when you use our web
+            application located at this website (the "Service"). By using
+            WorkSlots, you agree to the practices described in this policy.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">1. Overview</h2>
+          <p>
+            WorkSlots is a client-side web application that helps you define and
+            manage work time slots on your Google Calendar. The Application runs
+            entirely in your web browser.
+            <strong
+              >We do not operate any backend servers, databases, or cloud
+              infrastructure that stores your data.</strong
+            >
+            All data processing happens locally in your browser and directly
+            between your browser and Google's servers.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">
+            2. Information We Collect
+          </h2>
+
+          <h3 class="text-base font-semibold text-neutral-700">
+            2.1 Information We Do NOT Collect
+          </h3>
+          <p>
+            WorkSlots does <strong>not</strong> collect, store, transmit, or
+            have access to any of the following:
+          </p>
+          <ul>
+            <li>
+              Your name, email address, or Google account profile information
+            </li>
+            <li>Your Google Calendar data (events, calendars, descriptions)</li>
+            <li>Your Google OAuth access tokens or refresh tokens</li>
+            <li>Analytics, tracking, or telemetry data</li>
+            <li>IP addresses, device identifiers, or browser fingerprints</li>
+            <li>Cookies used for advertising or cross-site tracking</li>
+            <li>Any personally identifiable information (PII)</li>
+          </ul>
+
+          <h3 class="text-base font-semibold text-neutral-700">
+            2.2 Data Stored Locally in Your Browser
+          </h3>
+          <p>
+            WorkSlots stores the following data exclusively in your browser's
+            local storage (localStorage):
+          </p>
+          <ul>
+            <li>
+              <strong>Theme preference:</strong> Your choice of light or dark
+              mode (stored as the string "light" or "dark").
+            </li>
+          </ul>
+          <p>
+            This data never leaves your device and can be cleared at any time by
+            clearing your browser's site data.
+          </p>
+
+          <h3 class="text-base font-semibold text-neutral-700">
+            2.3 Data Stored in Google Calendar
+          </h3>
+          <p>
+            When you use WorkSlots, the following data is written directly to
+            your Google Calendar account through the Google Calendar API:
+          </p>
+          <ul>
+            <li>
+              <strong>A dedicated "WorkSlots" calendar:</strong> The Application
+              creates a calendar in your Google account to manage work slot
+              events.
+            </li>
+            <li>
+              <strong>Slot type definitions:</strong> Your custom slot type
+              configurations (name, start time, end time, color) are stored in
+              the description field of the WorkSlots calendar.
+            </li>
+            <li>
+              <strong>Calendar events:</strong> When you sync, the Application
+              creates, updates, or deletes events in the WorkSlots calendar.
+              Each event includes a title (slot name), start/end time, color, a
+              description noting "Created via WorkSlots", and a private extended
+              property to identify it as a WorkSlots-managed event.
+            </li>
+          </ul>
+          <p>
+            This data is stored in your own Google account and is subject to
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary-600 underline hover:text-primary-700"
+              >Google's Privacy Policy</a
+            >. WorkSlots has no server-side access to your Google account; all
+            API calls originate from your browser using your own OAuth token.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">
+            3. Google API Services Usage
+          </h2>
+
+          <h3 class="text-base font-semibold text-neutral-700">
+            3.1 Authentication
+          </h3>
+          <p>
+            WorkSlots uses Google OAuth 2.0 for authentication. When you click
+            "Connect Google", you are redirected to Google's own consent screen
+            where you authorize WorkSlots to access your Google Calendar. The
+            OAuth access token is managed entirely by Google's client libraries
+            in your browser.
+            <strong>We never see, store, or transmit your access token.</strong>
+          </p>
+
+          <h3 class="text-base font-semibold text-neutral-700">
+            3.2 Permissions Requested
+          </h3>
+          <p>WorkSlots requests the following Google API scopes:</p>
+          <ul>
+            <li>
+              <strong>https://www.googleapis.com/auth/calendar.events</strong> —
+              To create, read, update, and delete events in your Google
+              Calendar.
+            </li>
+            <li>
+              <strong>https://www.googleapis.com/auth/calendar</strong> — To
+              create the dedicated WorkSlots calendar, read its description
+              (where slot type configurations are stored), and list your
+              calendars to find the WorkSlots calendar.
+            </li>
+          </ul>
+          <p>
+            These permissions are used solely for the functionality described
+            above. WorkSlots does not read, modify, or delete any events or
+            calendars other than those it creates and manages.
+          </p>
+
+          <h3 class="text-base font-semibold text-neutral-700">
+            3.3 Google API Services User Data Policy
+          </h3>
+          <p>
+            WorkSlots' use and transfer to any other app of information received
+            from Google APIs will adhere to the
+            <a
+              href="https://developers.google.com/terms/api-services-user-data-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary-600 underline hover:text-primary-700"
+              >Google API Services User Data Policy</a
+            >, including the Limited Use requirements.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">
+            4. Third-Party Services
+          </h2>
+          <p>
+            WorkSlots loads the following third-party resources directly in your
+            browser:
+          </p>
+          <ul>
+            <li>
+              <strong>Google APIs</strong> (apis.google.com,
+              accounts.google.com) — For Google Calendar API access and OAuth
+              2.0 authentication.
+            </li>
+            <li>
+              <strong>Tailwind CSS CDN</strong> (cdn.tailwindcss.com) — For
+              styling the user interface.
+            </li>
+            <li>
+              <strong>Google Fonts</strong> (fonts.googleapis.com) — For the
+              Inter typeface.
+            </li>
+          </ul>
+          <p>
+            These third-party services may collect information as described in
+            their respective privacy policies. We encourage you to review them:
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 underline hover:text-primary-700"
+                >Google Privacy Policy</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://tailwindcss.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 underline hover:text-primary-700"
+                >Tailwind CSS</a
+              >
+            </li>
+          </ul>
+
+          <h2 class="text-lg font-bold text-neutral-800">
+            5. Data Retention and Deletion
+          </h2>
+          <p>Since WorkSlots does not store any of your data on our servers:</p>
+          <ul>
+            <li>
+              <strong>Browser data (theme preference):</strong> You can delete
+              this at any time by clearing your browser's site data or
+              localStorage for this website.
+            </li>
+            <li>
+              <strong>Google Calendar data:</strong> You can delete the
+              WorkSlots calendar and all its events at any time directly through
+              Google Calendar. You can also revoke WorkSlots' access to your
+              Google account at
+              <a
+                href="https://myaccount.google.com/permissions"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 underline hover:text-primary-700"
+                >https://myaccount.google.com/permissions</a
+              >.
+            </li>
+          </ul>
+          <p>
+            Once you revoke access and/or delete the WorkSlots calendar, no
+            trace of your usage remains, as we do not maintain any server-side
+            records.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">6. Data Security</h2>
+          <p>
+            All communication between your browser and Google's servers occurs
+            over HTTPS (encrypted in transit). Since WorkSlots operates entirely
+            client-side, there is no server-side attack surface controlled by
+            us. However, the security of your data also depends on:
+          </p>
+          <ul>
+            <li>
+              The security of your Google account (we recommend enabling
+              two-factor authentication).
+            </li>
+            <li>The security of your web browser and device.</li>
+            <li>
+              Your network security (avoid using WorkSlots on untrusted public
+              networks without a VPN).
+            </li>
+          </ul>
+
+          <h2 class="text-lg font-bold text-neutral-800">
+            7. Children's Privacy
+          </h2>
+          <p>
+            WorkSlots is not directed at children under the age of 13 (or the
+            applicable age of consent in your jurisdiction). We do not knowingly
+            collect any personal information from children. If you believe that
+            a child has used this Application, please note that since no data is
+            collected by us, there is no personal data of the child in our
+            possession. You may revoke the Application's access to the child's
+            Google account at any time via Google's account permissions page.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">
+            8. International Users
+          </h2>
+          <p>
+            WorkSlots is a client-side application. Your data is processed
+            locally in your browser and communicated directly to Google's
+            servers. We do not transfer your data to any other jurisdiction.
+            Google may process your data according to their own privacy
+            practices and data transfer mechanisms as described in their privacy
+            policy.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">9. Your Rights</h2>
+          <p>
+            Depending on your jurisdiction (e.g., under GDPR, CCPA, or similar
+            legislation), you may have the right to:
+          </p>
+          <ul>
+            <li>Access the personal data held about you.</li>
+            <li>Request deletion of your personal data.</li>
+            <li>Request correction of inaccurate data.</li>
+            <li>Object to or restrict processing of your data.</li>
+            <li>Data portability.</li>
+          </ul>
+          <p>
+            Since WorkSlots does not collect or store any personal data on its
+            own servers, we are unable to fulfill data access or deletion
+            requests because we simply do not have your data. All data resides
+            in your own Google account, where you have full control. To exercise
+            your rights with respect to Google-held data, please refer to
+            <a
+              href="https://myaccount.google.com/data-and-privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary-600 underline hover:text-primary-700"
+              >Google's Data & Privacy settings</a
+            >.
+          </p>
+
+          <h2 class="text-lg font-bold text-neutral-800">
+            10. Changes to This Policy
+          </h2>
+          <p>
+            We may update this Privacy Policy from time to time. Any changes
+            will be reflected on this page with an updated "Last updated" date.
+            Your continued use of WorkSlots after any changes constitutes
+            acceptance of the revised policy. We encourage you to review this
+            page periodically.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer links -->
+      <div class="mt-8 text-center text-sm text-neutral-400 space-x-4">
+        <a href="index.html" class="hover:text-primary-600 transition-colors"
+          >Back to App</a
+        >
+        <span>·</span>
+        <a
+          href="terms-of-service.html"
+          class="hover:text-primary-600 transition-colors"
+          >Terms of Service</a
+        >
+      </div>
+    </main>
+
+    <script>
+      function initTheme() {
+        const saved = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+        updateThemeIcon();
+      }
+      function toggleTheme() {
+        document.documentElement.classList.toggle("dark");
+        const isDark = document.documentElement.classList.contains("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        updateThemeIcon();
+      }
+      function updateThemeIcon() {
+        const isDark = document.documentElement.classList.contains("dark");
+        document
+          .getElementById("themeIconSun")
+          .classList.toggle("hidden", !isDark);
+        document
+          .getElementById("themeIconMoon")
+          .classList.toggle("hidden", isDark);
+      }
+      initTheme();
+    </script>
+  </body>
+</html>
