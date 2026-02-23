@@ -598,8 +598,7 @@
       const API_KEY = "AIzaSyCuBcQEWDy5jIg4OyFl0zFiKZ1KYdTBBQk";
       const DISCOVERY_DOC =
         "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
-      const SCOPES =
-        "https://www.googleapis.com/auth/calendar.app.created";
+      const SCOPES = "https://www.googleapis.com/auth/calendar";
       // Used to identify WorkSlots-managed events (make this hard-to-guess).
       const WORK_SLOTS_MANAGED_VALUE =
         "workslots_9f6c2a7d4b1e4c3aa0d8f7e2c1b9a6d5";
@@ -1142,6 +1141,14 @@
           showToast("Still loading Google APIs, please wait...");
           return;
         }
+        const requiredScopes = SCOPES.split(/\s+/).filter(Boolean);
+        const hasRequiredScopes = () => {
+          const token = gapi.client.getToken();
+          if (!token || !token.scope) return false;
+          const granted = new Set(token.scope.split(/\s+/).filter(Boolean));
+          return requiredScopes.every((scope) => granted.has(scope));
+        };
+
         tokenClient.callback = async (resp) => {
           if (resp.error !== undefined) throw resp;
           document.getElementById("authBtn").classList.add("hidden");
@@ -1176,7 +1183,7 @@
             showToast("Error setting up calendar. Check console.");
           }
         };
-        if (gapi.client.getToken() === null)
+        if (gapi.client.getToken() === null || !hasRequiredScopes())
           tokenClient.requestAccessToken({ prompt: "consent" });
         else tokenClient.requestAccessToken({ prompt: "" });
       }
