@@ -91,6 +91,10 @@
         --danger-hover: #f87171;
         --neutral-50-alpha: rgba(248, 247, 245, 0.5);
         --ring-selected: rgba(51, 48, 44, 0.2);
+        --warning-bg: #fef9e8;
+        --warning-border: rgba(110, 95, 80, 0.2);
+        --warning-text: #6e5f50;
+        --warning-chip-bg: #f4e8c2;
       }
 
       /* ── Dark Mode (Cool Greige) ── */
@@ -127,6 +131,10 @@
         --danger-hover: #dc2626;
         --neutral-50-alpha: rgba(26, 25, 24, 0.5);
         --ring-selected: rgba(240, 238, 235, 0.2);
+        --warning-bg: #2f2a20;
+        --warning-border: rgba(224, 216, 208, 0.18);
+        --warning-text: #e0d8d0;
+        --warning-chip-bg: #4a3f35;
       }
 
       body {
@@ -193,6 +201,34 @@
       .color-picker-wrapper:hover .color-tooltip {
         opacity: 1;
       }
+      .timezone-warning {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 46px;
+        margin: 0;
+        padding: 10px 24px;
+        border-radius: 0;
+        border: 1px solid var(--warning-border);
+        background-color: var(--warning-bg);
+        color: var(--warning-text);
+        box-sizing: border-box;
+      }
+      .timezone-warning-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--warning-chip-bg);
+        flex-shrink: 0;
+      }
+      .timezone-warning-message {
+        font-size: 0.75rem;
+        line-height: 1.2;
+      }
     </style>
   </head>
   <body class="bg-neutral-50 text-neutral-800 min-h-screen pb-12">
@@ -231,11 +267,23 @@
             class="flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 font-medium transition-all text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg class="w-4 h-4" viewBox="0 0 48 48">
-              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-              <path fill="#FBBC05" d="M10.53 28.59a14.5 14.5 0 0 1 0-9.18l-7.98-6.19a24.0 24.0 0 0 0 0 21.56l7.98-6.19z"/>
-              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-              <path fill="none" d="M0 0h48v48H0z"/>
+              <path
+                fill="#EA4335"
+                d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+              />
+              <path
+                fill="#4285F4"
+                d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M10.53 28.59a14.5 14.5 0 0 1 0-9.18l-7.98-6.19a24.0 24.0 0 0 0 0 21.56l7.98-6.19z"
+              />
+              <path
+                fill="#34A853"
+                d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+              />
+              <path fill="none" d="M0 0h48v48H0z" />
             </svg>
             <span>Connect Google</span>
           </button>
@@ -392,6 +440,28 @@
                 </svg>
               </button>
             </div>
+          </div>
+          <div id="timezoneWarning" class="timezone-warning hidden">
+            <span class="timezone-warning-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3.5 w-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 8v4m0 4h.01M10.29 3.86l-7.2 12.46A2 2 0 004.82 19h14.36a2 2 0 001.73-2.98l-7.2-12.46a2 2 0 00-3.46 0z"
+                />
+              </svg>
+            </span>
+            <span
+              id="timezoneWarningMessage"
+              class="timezone-warning-message"
+            ></span>
           </div>
 
           <div class="calendar-grid bg-neutral-50 border-b border-neutral-100">
@@ -560,14 +630,91 @@
 
       initTheme();
 
-      // Dev mode: add ?dev to URL to simulate login with mock data for UI testing
-      const isDevMode = new URLSearchParams(window.location.search).has("dev");
+      // Dev mode: add ?dev to URL to simulate login with mock data for UI testing.
+      // Optional overrides for timezone testing:
+      // - ?devUserTz=Europe/London
+      // - ?devCalendarTz=America/New_York
+      const urlParams = new URLSearchParams(window.location.search);
+      const isDevMode = urlParams.has("dev");
+      const devUserTimeZoneOverride = urlParams.get("devUserTz");
+      const devCalendarTimeZoneOverride = urlParams.get("devCalendarTz");
 
       // Provide minimal gapi/google mocks so the app doesn't crash in dev mode.
       // Always force-override gapi.client because even if the CDN script loads,
       // gapi.client won't exist until gapi.load("client") is called, which we
       // skip in dev mode.
       if (isDevMode) {
+        const DEV_EVENT_COLORS = {
+          1: { background: "#a4bdfc", foreground: "#1d1d1d" },
+          2: { background: "#7ae7bf", foreground: "#1d1d1d" },
+          3: { background: "#dbadff", foreground: "#1d1d1d" },
+          4: { background: "#ff887c", foreground: "#1d1d1d" },
+          5: { background: "#fbd75b", foreground: "#1d1d1d" },
+          6: { background: "#ffb878", foreground: "#1d1d1d" },
+          7: { background: "#46d6db", foreground: "#1d1d1d" },
+          8: { background: "#e1e1e1", foreground: "#1d1d1d" },
+          9: { background: "#5484ed", foreground: "#1d1d1d" },
+          10: { background: "#51b749", foreground: "#1d1d1d" },
+          11: { background: "#dc2127", foreground: "#1d1d1d" },
+        };
+        const devMockState = {
+          calendars: {},
+          eventsByCalendarId: {},
+          nextEventId: 1,
+        };
+
+        function ensureDevCalendar(calendarId = "dev-calendar") {
+          if (!devMockState.calendars[calendarId]) {
+            const tz =
+              normalizeTimeZone(devCalendarTimeZoneOverride) ||
+              normalizeTimeZone(devUserTimeZoneOverride) ||
+              Intl.DateTimeFormat().resolvedOptions().timeZone ||
+              "UTC";
+            const initialDescription = `${WORK_SLOTS_DATA_START}\nWorkSlots Calendar - ID: ${WORK_SLOTS_CALENDAR_IDENTIFIER}\nSLOT_TYPES_JSON: []\n${WORK_SLOTS_DATA_END}`;
+            devMockState.calendars[calendarId] = {
+              id: calendarId,
+              summary: WORK_SLOTS_CALENDAR_NAME,
+              description: initialDescription,
+              timeZone: tz,
+            };
+            devMockState.eventsByCalendarId[calendarId] = [];
+          }
+          return devMockState.calendars[calendarId];
+        }
+
+        function maybeSeedDevEventsFromSchedule(calendarId) {
+          const events = devMockState.eventsByCalendarId[calendarId];
+          if (!events || events.length > 0 || !schedule || !slotTypes) return;
+          const calendar = ensureDevCalendar(calendarId);
+          Object.entries(schedule).forEach(([dateKey, slotId]) => {
+            const slot = slotTypes.find((s) => String(s.id) === String(slotId));
+            if (!slot) return;
+            const startDateTime = `${dateKey}T${withSeconds(slot.start)}`;
+            const endDateKey =
+              slot.end <= slot.start ? getNextDateKey(dateKey) : dateKey;
+            const endDateTime = `${endDateKey}T${withSeconds(slot.end)}`;
+            events.push({
+              id: `dev-event-${devMockState.nextEventId++}`,
+              summary: `${slot.name}`,
+              description: "Created via WorkSlots",
+              ...(slot.colorId ? { colorId: String(slot.colorId) } : {}),
+              start: {
+                dateTime: startDateTime,
+                timeZone: calendar.timeZone,
+              },
+              end: {
+                dateTime: endDateTime,
+                timeZone: calendar.timeZone,
+              },
+              extendedProperties: {
+                private: {
+                  workSlotsManaged: WORK_SLOTS_MANAGED_VALUE,
+                },
+              },
+            });
+          });
+        }
+
         window.gapi = window.gapi || {};
         gapi.client = {
           _token: null,
@@ -579,6 +726,107 @@
           },
           init() {
             return Promise.resolve();
+          },
+          calendar: {
+            calendarList: {
+              async list() {
+                ensureDevCalendar("dev-calendar");
+                return {
+                  result: {
+                    items: Object.values(devMockState.calendars).map((cal) => ({
+                      id: cal.id,
+                      summary: cal.summary,
+                    })),
+                  },
+                };
+              },
+            },
+            calendars: {
+              async get({ calendarId }) {
+                const cal = ensureDevCalendar(calendarId);
+                return { result: { ...cal } };
+              },
+              async insert({ resource }) {
+                const id = resource?.id || `dev-calendar-${Date.now()}`;
+                const cal = {
+                  id,
+                  summary: resource?.summary || WORK_SLOTS_CALENDAR_NAME,
+                  description: resource?.description || "",
+                  timeZone:
+                    resource?.timeZone ||
+                    normalizeTimeZone(devCalendarTimeZoneOverride) ||
+                    "UTC",
+                };
+                devMockState.calendars[id] = cal;
+                devMockState.eventsByCalendarId[id] = [];
+                return { result: { ...cal } };
+              },
+              async patch({ calendarId, resource }) {
+                const cal = ensureDevCalendar(calendarId);
+                devMockState.calendars[calendarId] = {
+                  ...cal,
+                  ...resource,
+                };
+                return { result: { ...devMockState.calendars[calendarId] } };
+              },
+            },
+            colors: {
+              async get() {
+                return { result: { event: DEV_EVENT_COLORS } };
+              },
+            },
+            events: {
+              async list({
+                calendarId,
+                timeMin,
+                timeMax,
+                privateExtendedProperty,
+              }) {
+                ensureDevCalendar(calendarId);
+                maybeSeedDevEventsFromSchedule(calendarId);
+                const minTs = timeMin ? new Date(timeMin).getTime() : -Infinity;
+                const maxTs = timeMax ? new Date(timeMax).getTime() : Infinity;
+                const [filterKey, filterValue] = (
+                  privateExtendedProperty || ""
+                ).split("=");
+                const items = (
+                  devMockState.eventsByCalendarId[calendarId] || []
+                )
+                  .filter((event) => {
+                    const eventStart =
+                      event.start?.dateTime || event.start?.date;
+                    const eventTs = eventStart
+                      ? new Date(eventStart).getTime()
+                      : NaN;
+                    if (!Number.isFinite(eventTs)) return false;
+                    if (eventTs < minTs || eventTs >= maxTs) return false;
+                    if (!filterKey) return true;
+                    return (
+                      event.extendedProperties?.private?.[filterKey] ===
+                      filterValue
+                    );
+                  })
+                  .map((event) => JSON.parse(JSON.stringify(event)));
+                return { result: { items } };
+              },
+              async insert({ calendarId, resource }) {
+                ensureDevCalendar(calendarId);
+                const event = {
+                  id: `dev-event-${devMockState.nextEventId++}`,
+                  ...JSON.parse(JSON.stringify(resource)),
+                };
+                devMockState.eventsByCalendarId[calendarId].push(event);
+                return { result: event };
+              },
+              async delete({ calendarId, eventId }) {
+                ensureDevCalendar(calendarId);
+                const list = devMockState.eventsByCalendarId[calendarId] || [];
+                devMockState.eventsByCalendarId[calendarId] = list.filter(
+                  (event) => event.id !== eventId,
+                );
+                return { result: {} };
+              },
+            },
           },
         };
         gapi.load = gapi.load || function () {};
@@ -625,6 +873,166 @@
 
       let schedule = {}; // No longer stored in localStorage - loaded from Google Calendar
       let googleEventColors = null; // { [colorId]: { background, foreground } }
+      function normalizeTimeZone(timeZone) {
+        if (!timeZone) return null;
+        try {
+          Intl.DateTimeFormat("en-US", { timeZone }).format(new Date());
+          return timeZone;
+        } catch (err) {
+          return null;
+        }
+      }
+
+      const userTimeZone =
+        normalizeTimeZone(devUserTimeZoneOverride) ||
+        Intl.DateTimeFormat().resolvedOptions().timeZone ||
+        "UTC";
+      let calendarTimeZone = null;
+      let isTimeZoneMismatch = false;
+
+      function getCalendarTimeZoneOrFallback() {
+        return calendarTimeZone || userTimeZone || "UTC";
+      }
+
+      function getTimeZoneOffsetMs(date, timeZone) {
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          timeZone,
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        });
+        const parts = formatter
+          .formatToParts(date)
+          .reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {});
+        const asUtc = Date.UTC(
+          Number(parts.year),
+          Number(parts.month) - 1,
+          Number(parts.day),
+          Number(parts.hour),
+          Number(parts.minute),
+          Number(parts.second),
+        );
+        return asUtc - date.getTime();
+      }
+
+      function zonedDateTimeToUtcIso(
+        year,
+        monthIndex,
+        day,
+        hour,
+        minute,
+        second,
+        timeZone,
+      ) {
+        const utcMsGuess = Date.UTC(
+          year,
+          monthIndex,
+          day,
+          hour,
+          minute,
+          second,
+        );
+        let date = new Date(utcMsGuess);
+
+        // A couple of rounds are enough for DST transitions.
+        for (let i = 0; i < 3; i++) {
+          const offsetMs = getTimeZoneOffsetMs(date, timeZone);
+          date = new Date(utcMsGuess - offsetMs);
+        }
+
+        return date.toISOString();
+      }
+
+      function buildMonthRangeForCalendarTZ(year, monthIndex, timeZone) {
+        const nextMonthYear = monthIndex === 11 ? year + 1 : year;
+        const nextMonthIndex = (monthIndex + 1) % 12;
+
+        return {
+          timeMin: zonedDateTimeToUtcIso(
+            year,
+            monthIndex,
+            1,
+            0,
+            0,
+            0,
+            timeZone,
+          ),
+          timeMax: zonedDateTimeToUtcIso(
+            nextMonthYear,
+            nextMonthIndex,
+            1,
+            0,
+            0,
+            0,
+            timeZone,
+          ),
+        };
+      }
+
+      function formatDateKeyInTimeZone(dateTime, timeZone) {
+        if (!dateTime) return null;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateTime)) return dateTime;
+
+        const date = new Date(dateTime);
+        if (Number.isNaN(date.getTime())) return null;
+
+        const parts = new Intl.DateTimeFormat("en-CA", {
+          timeZone,
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).formatToParts(date);
+        const year = parts.find((p) => p.type === "year")?.value;
+        const month = parts.find((p) => p.type === "month")?.value;
+        const day = parts.find((p) => p.type === "day")?.value;
+        if (!year || !month || !day) return null;
+        return `${year}-${month}-${day}`;
+      }
+
+      function getNextDateKey(dateKey) {
+        const [year, month, day] = dateKey.split("-").map(Number);
+        const dt = new Date(Date.UTC(year, month - 1, day));
+        dt.setUTCDate(dt.getUTCDate() + 1);
+        return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, "0")}-${String(dt.getUTCDate()).padStart(2, "0")}`;
+      }
+
+      function withSeconds(timeValue) {
+        return /^\d{2}:\d{2}$/.test(timeValue) ? `${timeValue}:00` : timeValue;
+      }
+
+      function updateCalendarTimeZone(calendarTz) {
+        calendarTimeZone = calendarTz || userTimeZone;
+        isTimeZoneMismatch = calendarTimeZone !== userTimeZone;
+        updateTimeZoneWarningUI();
+      }
+
+      function updateTimeZoneWarningUI() {
+        const warning = document.getElementById("timezoneWarning");
+        const warningMessage = document.getElementById(
+          "timezoneWarningMessage",
+        );
+        if (!warning || !warningMessage) return;
+
+        if (!calendarTimeZone || !isTimeZoneMismatch) {
+          warning.classList.add("hidden");
+          warningMessage.textContent = "";
+          return;
+        }
+
+        warningMessage.textContent = `Calendar timezone: ${calendarTimeZone}. Your timezone: ${userTimeZone}. Slots are shown in the calendar timezone.`;
+        warning.classList.remove("hidden");
+      }
+
+      function maybeShowTimeZoneMismatchToast() {
+        if (!calendarTimeZone || !isTimeZoneMismatch) return;
+        showToast(
+          `Timezone warning: calendar uses ${calendarTimeZone}, you are in ${userTimeZone}.`,
+        );
+      }
 
       function getSlotColorHex(slot) {
         if (
@@ -714,6 +1122,7 @@
               const description = fullCal.result.description || "";
               if (description.includes(WORK_SLOTS_CALENDAR_IDENTIFIER)) {
                 selectedCalendarId = cal.id;
+                updateCalendarTimeZone(fullCal.result.timeZone);
                 showToast("Using WorkSlots calendar");
                 return cal.id;
               }
@@ -729,10 +1138,12 @@
             resource: {
               summary: WORK_SLOTS_CALENDAR_NAME,
               description: initialDescription,
+              timeZone: userTimeZone,
             },
           });
 
           selectedCalendarId = newCalendar.result.id;
+          updateCalendarTimeZone(newCalendar.result.timeZone || userTimeZone);
           showToast("Created WorkSlots calendar");
           return newCalendar.result.id;
         } catch (err) {
@@ -748,6 +1159,7 @@
           const response = await gapi.client.calendar.calendars.get({
             calendarId: calendarId,
           });
+          updateCalendarTimeZone(response.result.timeZone);
 
           // Look for slot types within the boundary markers
           const description = response.result.description || "";
@@ -1158,6 +1570,7 @@
           try {
             // Find or create WorkSlots calendar
             await findOrCreateWorkSlotsCalendar();
+            maybeShowTimeZoneMismatchToast();
 
             // Load slot types from calendar
             const loadedSlotTypes =
@@ -1199,9 +1612,12 @@
           document.getElementById("syncBtn").disabled = true;
           document.getElementById("addSlotTypeBtn").disabled = true;
           selectedCalendarId = null;
+          calendarTimeZone = null;
+          isTimeZoneMismatch = false;
           schedule = {}; // Clear schedule on sign out
           slotTypes = []; // Clear slot types on sign out
           googleEventColors = null;
+          updateTimeZoneWarningUI();
           renderCalendar();
           renderSlotTypes();
           showToast("Signed out.");
@@ -1215,6 +1631,9 @@
 
         // Fake calendar ID
         selectedCalendarId = "dev-calendar";
+        updateCalendarTimeZone(
+          normalizeTimeZone(devCalendarTimeZoneOverride) || userTimeZone,
+        );
 
         // Mock Google event colors (mirrors Google Calendar's 11 event colors)
         googleEventColors = {
@@ -1281,7 +1700,10 @@
         // Re-render
         renderSlotTypes();
         renderCalendar();
-        showToast("Dev mode: logged in with mock data");
+        maybeShowTimeZoneMismatchToast();
+        showToast(
+          "Dev mode ready. Use devCalendarTz/devUserTz query params to test timezone behavior.",
+        );
       }
 
       async function loadEventColors() {
@@ -1312,33 +1734,19 @@
         showToast("Loading slots from Google Calendar...");
 
         try {
-          // Calculate the date range for the current month
-          const firstDay = new Date(currentYear, currentMonth, 1);
-          const lastDay = new Date(currentYear, currentMonth + 1, 0);
-
-          // Set timeMin to start of first day and timeMax to end of last day
-          const timeMin = new Date(
+          const calendarTz = getCalendarTimeZoneOrFallback();
+          const { timeMin, timeMax } = buildMonthRangeForCalendarTZ(
             currentYear,
             currentMonth,
-            1,
-            0,
-            0,
-            0,
-          ).toISOString();
-          const timeMax = new Date(
-            currentYear,
-            currentMonth,
-            lastDay.getDate(),
-            23,
-            59,
-            59,
-          ).toISOString();
+            calendarTz,
+          );
 
           // Fetch all events for the current month
           const response = await gapi.client.calendar.events.list({
             calendarId: selectedCalendarId,
             timeMin: timeMin,
             timeMax: timeMax,
+            timeZone: calendarTz,
             privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
             singleEvents: true,
             orderBy: "startTime",
@@ -1380,8 +1788,8 @@
             const startDateTime = event.start.dateTime || event.start.date;
             if (!startDateTime) continue;
 
-            const eventDate = new Date(startDateTime);
-            const dateKey = `${eventDate.getFullYear()}-${String(eventDate.getMonth() + 1).padStart(2, "0")}-${String(eventDate.getDate()).padStart(2, "0")}`;
+            const dateKey = formatDateKeyInTimeZone(startDateTime, calendarTz);
+            if (!dateKey) continue;
 
             // Only add if it's in the current month
             if (dateKey.startsWith(monthPrefix)) {
@@ -1430,29 +1838,17 @@
             currentMonth + 1,
             0,
           ).getDate();
+          const calendarTz = getCalendarTimeZoneOrFallback();
 
           // Fetch all WorkSlots-managed events in the month (single API call)
-          const monthTimeMin = new Date(
-            currentYear,
-            currentMonth,
-            1,
-            0,
-            0,
-            0,
-          ).toISOString();
-          const monthTimeMax = new Date(
-            currentYear,
-            currentMonth,
-            daysInMonth,
-            23,
-            59,
-            59,
-          ).toISOString();
+          const { timeMin: monthTimeMin, timeMax: monthTimeMax } =
+            buildMonthRangeForCalendarTZ(currentYear, currentMonth, calendarTz);
 
           const monthEventsResp = await gapi.client.calendar.events.list({
             calendarId: selectedCalendarId,
             timeMin: monthTimeMin,
             timeMax: monthTimeMax,
+            timeZone: calendarTz,
             privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
             singleEvents: true,
             orderBy: "startTime",
@@ -1471,8 +1867,8 @@
             const startDateTime = event.start?.dateTime || event.start?.date;
             if (!startDateTime) continue;
 
-            const eventDate = new Date(startDateTime);
-            const dateKey = `${eventDate.getFullYear()}-${String(eventDate.getMonth() + 1).padStart(2, "0")}-${String(eventDate.getDate()).padStart(2, "0")}`;
+            const dateKey = formatDateKeyInTimeZone(startDateTime, calendarTz);
+            if (!dateKey) continue;
             if (!dateKey.startsWith(monthPrefix)) continue;
 
             if (!existingByDateKey[dateKey]) existingByDateKey[dateKey] = [];
@@ -1501,21 +1897,22 @@
             const slot = slotTypes.find((s) => s.id == slotId);
             if (!slot) continue;
 
-            let startDate = new Date(dateStr + "T" + slot.start);
-            let endDate = new Date(dateStr + "T" + slot.end);
-            if (endDate <= startDate) endDate.setDate(endDate.getDate() + 1);
+            const startDateTime = `${dateStr}T${withSeconds(slot.start)}`;
+            const endDateKey =
+              slot.end <= slot.start ? getNextDateKey(dateStr) : dateStr;
+            const endDateTime = `${endDateKey}T${withSeconds(slot.end)}`;
 
             const newEvent = {
               summary: `${slot.name}`,
               description: "Created via WorkSlots",
               ...(slot.colorId ? { colorId: String(slot.colorId) } : {}),
               start: {
-                dateTime: startDate.toISOString(),
-                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                dateTime: startDateTime,
+                timeZone: calendarTz,
               },
               end: {
-                dateTime: endDate.toISOString(),
-                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                dateTime: endDateTime,
+                timeZone: calendarTz,
               },
               extendedProperties: {
                 private: {
@@ -1579,6 +1976,7 @@
               try {
                 // Find or create WorkSlots calendar
                 await findOrCreateWorkSlotsCalendar();
+                maybeShowTimeZoneMismatchToast();
 
                 // Load slot types from calendar
                 const loadedSlotTypes =

@@ -40,7 +40,7 @@ Since it's a native Google Calendar, shared people see updates in real time on a
 - **Two-way awareness** — synced events load back when you revisit a month, so you always see your current state.
 - **Dark mode** — toggle between light and dark themes; your preference is remembered.
 - **Responsive layout** — works on desktop and mobile screens.
-- **Dev mode** — append `?dev` to the URL to test the UI with mock data, no Google account needed.
+- **Dev mode** — append `?dev` to the URL to test the UI with mock data, no Google account needed, including timezone behavior.
 
 ## Tech Stack
 
@@ -60,6 +60,42 @@ Since it's a native Google Calendar, shared people see updates in real time on a
 3. Click **Connect Google** to authenticate and start planning.
 
 To try the UI without a Google account, open `index.html?dev` instead.
+
+## Dev Mode
+
+Dev mode includes an in-memory mock of Google Calendar APIs so you can test:
+
+- Connect/login flow
+- Refresh and sync behavior
+- Slot loading and rendering
+- Calendar timezone canonicalization and mismatch warnings
+
+Use query params:
+
+- `?dev` enables dev mode
+- `devUserTz` overrides the user timezone
+- `devCalendarTz` overrides the calendar timezone
+
+Examples:
+
+- Basic dev mode:
+  - `index.html?dev`
+- Simulate timezone mismatch:
+  - `index.html?dev&devUserTz=Europe/Lisbon&devCalendarTz=Europe/Berlin`
+- Simulate matching timezones:
+  - `index.html?dev&devUserTz=Europe/Lisbon&devCalendarTz=Europe/Lisbon`
+
+## How to Test Now
+
+1. Open one of the dev URLs above.
+2. Click **Dev Login**.
+3. Verify timezone UX:
+   - Warning banner appears only when user and calendar timezones differ.
+   - Warning toast appears on login when there is a mismatch.
+4. Verify behavior:
+   - **Refresh** loads slots from the mocked calendar.
+   - **Sync Current Month** updates mocked calendar events.
+   - Slot day mapping follows the calendar timezone rules.
 
 ## How Data Is Stored
 
