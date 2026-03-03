@@ -229,6 +229,28 @@
         font-size: 0.75rem;
         line-height: 1.2;
       }
+      .slot-drop-before,
+      .slot-drop-after {
+        position: relative;
+      }
+      .slot-drop-before::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -8px;
+        border-top: 2px solid var(--primary-500);
+        pointer-events: none;
+      }
+      .slot-drop-after::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -8px;
+        border-bottom: 2px solid var(--primary-500);
+        pointer-events: none;
+      }
     </style>
   </head>
   <body class="bg-neutral-50 text-neutral-800 min-h-screen pb-12">
@@ -870,6 +892,8 @@
       let userCalendars = [];
 
       let slotTypes = [];
+      let draggedSlotId = null;
+      let dropIndicator = { targetSlotId: null, position: null };
 
       let schedule = {}; // No longer stored in localStorage - loaded from Google Calendar
       let googleEventColors = null; // { [colorId]: { background, foreground } }
@@ -1369,11 +1393,20 @@
         list.innerHTML = "";
         slotTypes.forEach((slot) => {
           const div = document.createElement("div");
+          div.draggable = true;
+          div.dataset.slotId = String(slot.id);
           div.className =
-            "p-3 bg-neutral-50 rounded-lg border border-neutral-100 space-y-2";
+            "p-3 bg-neutral-50 rounded-lg border border-neutral-100 space-y-2 cursor-move";
+          div.ondragstart = (event) => handleSlotDragStart(event, slot.id);
+          div.ondragend = handleSlotDragEnd;
+          div.ondragover = (event) => handleSlotDragOver(event, slot.id);
+          div.ondrop = (event) => handleSlotDrop(event, slot.id);
           div.innerHTML = `
                     <div class="flex justify-between items-center">
-                        <input type="text" value="${slot.name}" onchange="updateSlot(${slot.id}, 'name', this.value)" class="bg-transparent font-bold text-sm w-24 outline-none focus:text-primary-600">
+                        <div class="flex items-center gap-2">
+                          <span class="text-neutral-400 select-none" title="Drag to reorder" aria-hidden="true">&#8942;&#8942;</span>
+                          <input type="text" value="${slot.name}" onchange="updateSlot(${slot.id}, 'name', this.value)" class="bg-transparent font-bold text-sm w-24 outline-none focus:text-primary-600">
+                        </div>
                         <button onclick="removeSlotType(${slot.id})" class="text-neutral-400 hover:text-danger-hover">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                         </button>
@@ -1416,6 +1449,146 @@
                 `;
           list.appendChild(div);
         });
+      }
+
+      function reorderSlotTypes(draggedId, targetId, position = "before") {
+        const fromIndex = slotTypes.findIndex(
+          (s) => String(s.id) === String(draggedId),
+        );
+        const targetIndex = slotTypes.findIndex(
+          (s) => String(s.id) === String(targetId),
+        );
+        if (fromIndex === -1 || targetIndex === -1) {
+          return false;
+        }
+
+        let insertionIndex = targetIndex;
+        if (position === "after") {
+          insertionIndex += 1;
+        }
+        if (fromIndex < insertionIndex) {
+          insertionIndex -= 1;
+        }
+        if (fromIndex === insertionIndex) {
+          return false;
+        }
+
+        const [movedSlot] = slotTypes.splice(fromIndex, 1);
+        slotTypes.splice(insertionIndex, 0, movedSlot);
+        return true;
+      }
+
+      function wouldReorderSlotTypes(draggedId, targetId, position = "before") {
+        const fromIndex = slotTypes.findIndex(
+          (s) => String(s.id) === String(draggedId),
+        );
+        const targetIndex = slotTypes.findIndex(
+          (s) => String(s.id) === String(targetId),
+        );
+        if (fromIndex === -1 || targetIndex === -1) {
+          return false;
+        }
+
+        let insertionIndex = targetIndex;
+        if (position === "after") {
+          insertionIndex += 1;
+        }
+        if (fromIndex < insertionIndex) {
+          insertionIndex -= 1;
+        }
+        return fromIndex !== insertionIndex;
+      }
+
+      function handleSlotDragStart(event, slotId) {
+        draggedSlotId = slotId;
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = "move";
+          event.dataTransfer.setData("text/plain", String(slotId));
+        }
+      }
+
+      function handleSlotDragEnd() {
+        draggedSlotId = null;
+        clearDropIndicator();
+      }
+
+      function getDropPosition(event, targetElement) {
+        const rect = targetElement.getBoundingClientRect();
+        const middleY = rect.top + rect.height / 2;
+        return event.clientY < middleY ? "before" : "after";
+      }
+
+      function clearDropIndicator() {
+        document
+          .querySelectorAll(".slot-drop-before, .slot-drop-after")
+          .forEach((el) => {
+            el.classList.remove("slot-drop-before", "slot-drop-after");
+          });
+        dropIndicator = { targetSlotId: null, position: null };
+      }
+
+      function setDropIndicator(targetSlotId, position, targetElement) {
+        if (
+          dropIndicator.targetSlotId === targetSlotId &&
+          dropIndicator.position === position
+        ) {
+          return;
+        }
+        clearDropIndicator();
+        targetElement.classList.add(
+          position === "before" ? "slot-drop-before" : "slot-drop-after",
+        );
+        dropIndicator = { targetSlotId, position };
+      }
+
+      function handleSlotDragOver(event, targetSlotId) {
+        event.preventDefault();
+        if (event.dataTransfer) {
+          event.dataTransfer.dropEffect = "move";
+        }
+        if (
+          draggedSlotId === null ||
+          String(draggedSlotId) === String(targetSlotId)
+        ) {
+          clearDropIndicator();
+          return;
+        }
+        const targetElement = event.currentTarget;
+        const position = getDropPosition(event, targetElement);
+        if (!wouldReorderSlotTypes(draggedSlotId, targetSlotId, position)) {
+          clearDropIndicator();
+          return;
+        }
+        setDropIndicator(targetSlotId, position, targetElement);
+      }
+
+      async function handleSlotDrop(event, targetSlotId) {
+        event.preventDefault();
+        const draggedId =
+          (event.dataTransfer && event.dataTransfer.getData("text/plain")) ||
+          (draggedSlotId !== null ? String(draggedSlotId) : "");
+        const dropPosition = getDropPosition(event, event.currentTarget);
+
+        clearDropIndicator();
+
+        if (!draggedId || String(draggedId) === String(targetSlotId)) {
+          return;
+        }
+
+        const wasReordered = reorderSlotTypes(
+          draggedId,
+          targetSlotId,
+          dropPosition,
+        );
+        if (!wasReordered) {
+          return;
+        }
+
+        renderSlotTypes();
+        renderCalendar();
+        if (selectedCalendarId) {
+          await saveSlotTypesToCalendar(selectedCalendarId, slotTypes);
+        }
       }
 
       async function addNewSlotType() {
