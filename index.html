@@ -1017,6 +1017,47 @@
         return `${year}-${month}-${day}`;
       }
 
+      function formatTimeInTimeZone(dateTime, timeZone) {
+        if (!dateTime) return null;
+        const date = dateTime instanceof Date ? dateTime : new Date(dateTime);
+        if (Number.isNaN(date.getTime())) return null;
+
+        const parts = new Intl.DateTimeFormat("en-GB", {
+          timeZone,
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }).formatToParts(date);
+        const hour = parts.find((p) => p.type === "hour")?.value;
+        const minute = parts.find((p) => p.type === "minute")?.value;
+        if (!hour || !minute) return null;
+        return `${hour}:${minute}`;
+      }
+
+      function convertLocalDateTimeBetweenTimeZones(
+        dateKey,
+        timeValue,
+        fromTimeZone,
+        toTimeZone,
+      ) {
+        const [year, month, day] = dateKey.split("-").map(Number);
+        const [hour, minute] = withSeconds(timeValue).split(":").map(Number);
+        const utcIso = zonedDateTimeToUtcIso(
+          year,
+          month - 1,
+          day,
+          hour,
+          minute,
+          0,
+          fromTimeZone,
+        );
+        const instant = new Date(utcIso);
+        return {
+          dateKey: formatDateKeyInTimeZone(instant, toTimeZone),
+          time: formatTimeInTimeZone(instant, toTimeZone),
+        };
+      }
+
       function getNextDateKey(dateKey) {
         const [year, month, day] = dateKey.split("-").map(Number);
         const dt = new Date(Date.UTC(year, month - 1, day));
@@ -1047,7 +1088,7 @@
           return;
         }
 
-        warningMessage.textContent = `Calendar timezone: ${calendarTimeZone}. Your timezone: ${userTimeZone}. Slots are shown in the calendar timezone.`;
+        warningMessage.textContent = `Calendar timezone: ${calendarTimeZone}. Your timezone: ${userTimeZone}. Workslots shows times in your timezone and converts automatically during sync.`;
         warning.classList.remove("hidden");
       }
 
@@ -1907,11 +1948,10 @@
         showToast("Loading slots from Google Calendar...");
 
         try {
-          const calendarTz = getCalendarTimeZoneOrFallback();
           const { timeMin, timeMax } = buildMonthRangeForCalendarTZ(
             currentYear,
             currentMonth,
-            calendarTz,
+            userTimeZone,
           );
 
           // Fetch all events for the current month
@@ -1919,7 +1959,7 @@
             calendarId: selectedCalendarId,
             timeMin: timeMin,
             timeMax: timeMax,
-            timeZone: calendarTz,
+            timeZone: userTimeZone,
             privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
             singleEvents: true,
             orderBy: "startTime",
@@ -1961,7 +2001,7 @@
             const startDateTime = event.start.dateTime || event.start.date;
             if (!startDateTime) continue;
 
-            const dateKey = formatDateKeyInTimeZone(startDateTime, calendarTz);
+            const dateKey = formatDateKeyInTimeZone(startDateTime, userTimeZone);
             if (!dateKey) continue;
 
             // Only add if it's in the current month
@@ -2015,13 +2055,13 @@
 
           // Fetch all WorkSlots-managed events in the month (single API call)
           const { timeMin: monthTimeMin, timeMax: monthTimeMax } =
-            buildMonthRangeForCalendarTZ(currentYear, currentMonth, calendarTz);
+            buildMonthRangeForCalendarTZ(currentYear, currentMonth, userTimeZone);
 
           const monthEventsResp = await gapi.client.calendar.events.list({
             calendarId: selectedCalendarId,
             timeMin: monthTimeMin,
             timeMax: monthTimeMax,
-            timeZone: calendarTz,
+            timeZone: userTimeZone,
             privateExtendedProperty: WORK_SLOTS_PRIVATE_FILTER,
             singleEvents: true,
             orderBy: "startTime",
@@ -2040,7 +2080,7 @@
             const startDateTime = event.start?.dateTime || event.start?.date;
             if (!startDateTime) continue;
 
-            const dateKey = formatDateKeyInTimeZone(startDateTime, calendarTz);
+            const dateKey = formatDateKeyInTimeZone(startDateTime, userTimeZone);
             if (!dateKey) continue;
             if (!dateKey.startsWith(monthPrefix)) continue;
 
@@ -2070,10 +2110,34 @@
             const slot = slotTypes.find((s) => s.id == slotId);
             if (!slot) continue;
 
-            const startDateTime = `${dateStr}T${withSeconds(slot.start)}`;
-            const endDateKey =
+            const endDateKeyInUserTz =
               slot.end <= slot.start ? getNextDateKey(dateStr) : dateStr;
-            const endDateTime = `${endDateKey}T${withSeconds(slot.end)}`;
+            const convertedStart = convertLocalDateTimeBetweenTimeZones(
+              dateStr,
+              slot.start,
+              userTimeZone,
+              calendarTz,
+            );
+            const convertedEnd = convertLocalDateTimeBetweenTimeZones(
+              endDateKeyInUserTz,
+              slot.end,
+              userTimeZone,
+              calendarTz,
+            );
+            if (
+              !convertedStart?.dateKey ||
+              !convertedStart?.time ||
+              !convertedEnd?.dateKey ||
+              !convertedEnd?.time
+            ) {
+              console.warn("Skipping slot due to timezone conversion failure", {
+                dateStr,
+                slot,
+              });
+              continue;
+            }
+            const startDateTime = `${convertedStart.dateKey}T${withSeconds(convertedStart.time)}`;
+            const endDateTime = `${convertedEnd.dateKey}T${withSeconds(convertedEnd.time)}`;
 
             const newEvent = {
               summary: `${slot.name}`,
