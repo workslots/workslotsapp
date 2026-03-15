@@ -333,14 +333,14 @@
           <p>WorkSlots requests the following Google API scope:</p>
           <ul>
             <li>
-              <strong
-                >https://www.googleapis.com/auth/calendar.app.created</strong
-              >
-              — To create the dedicated WorkSlots calendar, manage its
-              description (where slot type configurations are stored), and
-              create, read, update, and delete events on it. This scope only
-              grants access to calendars created by WorkSlots — it does not
-              allow access to your personal or other calendars.
+              <strong>https://www.googleapis.com/auth/calendar</strong>
+              — To find or create the dedicated WorkSlots calendar, manage its
+              description (where slot type configurations are stored), load
+              existing WorkSlots-managed events, and create, update, or delete
+              events during sync. This broad scope is required by Google
+              Calendar API operations used by WorkSlots, even though WorkSlots
+              is designed to operate only on the dedicated calendar and
+              WorkSlots-managed events.
             </li>
           </ul>
           <p>
