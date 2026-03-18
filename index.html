@@ -251,6 +251,14 @@
         border-bottom: 2px solid var(--primary-500);
         pointer-events: none;
       }
+      @media (min-width: 1024px) {
+        #calendarGrid {
+          grid-template-rows: repeat(6, minmax(0, 1fr));
+        }
+        .day-cell {
+          min-height: 0;
+        }
+      }
     </style>
   </head>
   <body class="bg-neutral-50 text-neutral-800 min-h-screen pb-12">
@@ -393,9 +401,9 @@
       </div>
 
       <!-- Main Content: Calendar -->
-      <div class="lg:col-span-3 lg:row-span-2">
+      <div class="lg:col-span-3 lg:row-span-2 lg:h-full">
         <div
-          class="bg-surface rounded-xl shadow-sm border border-neutral-200 overflow-hidden"
+          class="bg-surface rounded-xl shadow-sm border border-neutral-200 overflow-hidden lg:h-full lg:flex lg:flex-col"
         >
           <div
             class="p-6 border-b border-neutral-100 flex justify-between items-center"
@@ -524,30 +532,37 @@
             </div>
           </div>
 
-          <div id="calendarGrid" class="calendar-grid">
+          <div id="calendarGrid" class="calendar-grid lg:flex-1">
             <!-- JS Injected Cells -->
           </div>
         </div>
       </div>
 
-      <!-- Instructions (below calendar on small screens, in sidebar column on large) -->
-      <div class="lg:col-span-1">
+      <!-- App purpose and instructions (below calendar on small screens, in sidebar column on large) -->
+      <div class="lg:col-span-1 space-y-4">
         <div class="bg-primary-50 p-4 rounded-xl border border-primary-100">
           <h3 class="text-xs font-bold text-primary-800 uppercase mb-2">
-            Purpose &amp; Instructions
+            What WorkSlots Does
           </h3>
           <p class="text-xs text-primary-700 leading-relaxed">
             WorkSlots helps shift workers plan recurring work schedules and sync
             those schedules to a dedicated Google Calendar.<br />
-            After you connect Google, WorkSlots accesses your Google Calendar to
-            read calendar data and create, update, or delete WorkSlots-related
-            events when you sync.<br /><br />
+            After you connect Google, WorkSlots reads your Google Calendar and,
+            during sync, creates, updates, or deletes events in your dedicated
+            WorkSlots calendar.
+          </p>
+        </div>
+        <div class="bg-primary-50 p-4 rounded-xl border border-primary-100">
+          <h3 class="text-xs font-bold text-primary-800 uppercase mb-2">
+            How to Use
+          </h3>
+          <p class="text-xs text-primary-700 leading-relaxed">
             1. Connect your Google account.<br />
-            2. Create your slot types (for example: Morning, Evening, Off).<br />
-            3. Click a date to assign a slot.<br />
-            4. Navigate to the month you want to sync.<br />
-            5. Click "Sync Current Month" to create or update events in your
-            Google Calendar.
+            2. Create your slot types (for example: Morning, Evening).<br />
+            3. Navigate to the month you want to sync.<br />
+            4. Click dates in that month to assign your slots.<br />
+            5. Click "Sync Current Month" to apply changes for that month in
+            your Google Calendar.
           </p>
         </div>
       </div>
@@ -2007,7 +2022,10 @@
             const startDateTime = event.start.dateTime || event.start.date;
             if (!startDateTime) continue;
 
-            const dateKey = formatDateKeyInTimeZone(startDateTime, userTimeZone);
+            const dateKey = formatDateKeyInTimeZone(
+              startDateTime,
+              userTimeZone,
+            );
             if (!dateKey) continue;
 
             // Only add if it's in the current month
@@ -2061,7 +2079,11 @@
 
           // Fetch all WorkSlots-managed events in the month (single API call)
           const { timeMin: monthTimeMin, timeMax: monthTimeMax } =
-            buildMonthRangeForCalendarTZ(currentYear, currentMonth, userTimeZone);
+            buildMonthRangeForCalendarTZ(
+              currentYear,
+              currentMonth,
+              userTimeZone,
+            );
 
           const monthEventsResp = await gapi.client.calendar.events.list({
             calendarId: selectedCalendarId,
@@ -2086,7 +2108,10 @@
             const startDateTime = event.start?.dateTime || event.start?.date;
             if (!startDateTime) continue;
 
-            const dateKey = formatDateKeyInTimeZone(startDateTime, userTimeZone);
+            const dateKey = formatDateKeyInTimeZone(
+              startDateTime,
+              userTimeZone,
+            );
             if (!dateKey) continue;
             if (!dateKey.startsWith(monthPrefix)) continue;
 
